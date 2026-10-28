@@ -9,7 +9,7 @@ const state = {
   dial:     'ivory',
   strap:    'brown',
   shape:    'rolex-datejust',
-  dialFace: 'classic',
+  dialFace: 'roman',
 };
 
 const BASE_PRICE = 35000;
@@ -44,9 +44,12 @@ const PRICES = {
     rectangular: 4000,
   },
   dialFace: {
-    classic: 0,
+    diver:   0,
+    roman:   0,
+    baton:   0,
     round:   0,
     square:  0,
+    classic: 0,
   },
 };
 
@@ -80,9 +83,13 @@ const LABELS = {
     rectangular: 'Cartier Santos (Квадратный)',
   },
   dialFace: {
-    classic: 'Классический',
-    round:   'Круглый',
-    square:  'Квадратный',
+    diver:   'Дайверский люминофор',
+    roman:   'Римские цифры',
+    baton:   'Накладные индексы',
+    // Aliases
+    round:   'Дайверский люминофор',
+    square:  'Римские цифры',
+    classic: 'Накладные индексы',
   },
 };
 
@@ -203,15 +210,28 @@ const STRAP_COLORS = {
   },
 };
 
-// ── SVG SHADER GENERATOR ───────────────────────
-function getCaseDefs(material, dialColor) {
+const cx = 140, cy = 191;
+
+// ── SVG SHADER & CLIP GENERATOR ────────────────
+function getCaseDefs(material, dialColor, shapeKey) {
   const mat = CASE_MATERIALS[material] || CASE_MATERIALS.silver;
 
   let ceramic = '#181A1D';
   if (dialColor === 'green') ceramic = '#143823';
   if (dialColor === 'navy')  ceramic = '#112242';
 
+  // Strict aperture clip-path matching inner bezel exactly
+  let clipPathD = `M 83.5 191 A 56.5 56.5 0 1 0 196.5 191 A 56.5 56.5 0 1 0 83.5 191 Z`;
+  if (shapeKey === 'cartier-santos') {
+    clipPathD = `M 95 131 L 185 131 Q 200 131 200 146 L 200 236 Q 200 251 185 251 L 95 251 Q 80 251 80 236 L 80 146 Q 80 131 95 131 Z`;
+  } else if (shapeKey === 'patek-nautilus') {
+    clipPathD = `M 102 131 L 178 131 Q 202 131 202 155 L 202 227 Q 202 251 178 251 L 102 251 Q 78 251 78 227 L 78 155 Q 78 131 102 131 Z`;
+  }
+
   return `
+    <clipPath id="dialClip">
+      <path id="dialClipPath" d="${clipPathD}"/>
+    </clipPath>
     <linearGradient id="caseMetalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       ${mat.caseMetal.map(stop => {
         const [color, offset] = stop.split(' ');
@@ -239,7 +259,6 @@ function getCaseDefs(material, dialColor) {
 }
 
 // ── LUXURY CASE MODEL SVG GENERATORS ───────────
-const cx = 140, cy = 191;
 
 // 1. Rolex Datejust (Fluted Bezel, Oyster Lugs, Cyclops)
 function getRolexDatejustSvg(mat) {
@@ -257,19 +276,15 @@ function getRolexDatejustSvg(mat) {
   }
 
   return `
-    <!-- Drop Shadow -->
     <path d="M 90 95 C 60 140 60 242 90 287 L 190 287 C 220 242 220 140 190 95 Z" fill="#000" opacity="0.22" filter="blur(6px)" transform="translate(0, 5)"/>
     
-    <!-- Monobloc Oyster Case Body -->
     <path d="M 92 95 C 60 142 60 240 92 287 L 102 287 C 100 274 106 266 114 263 L 166 263 C 174 266 180 274 178 287 L 188 287 C 220 240 220 142 188 95 L 178 95 C 180 108 174 116 166 119 L 114 119 C 106 116 100 108 102 95 Z" fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="1.2"/>
     
-    <!-- Oyster Lug Polished Facets -->
     <path d="M 92 95 C 80 120 70 145 66 168 L 63 162 C 68 138 78 114 92 95 Z" fill="url(#caseBevelGrad)"/>
     <path d="M 188 95 C 200 120 210 145 214 168 L 217 162 C 212 138 202 114 188 95 Z" fill="url(#caseBevelGrad)"/>
     <path d="M 92 287 C 80 262 70 237 66 214 L 63 220 C 68 244 78 268 92 287 Z" fill="url(#caseBevelGrad)"/>
     <path d="M 188 287 C 200 262 210 237 214 214 L 217 220 C 212 244 202 268 188 287 Z" fill="url(#caseBevelGrad)"/>
 
-    <!-- Twinlock Fluted Crown at 3 o'clock -->
     <g transform="translate(217, 180)">
       <rect x="0" y="2" width="13" height="18" rx="3.5" fill="${mat.crownMetal}" stroke="#000" stroke-opacity="0.25" stroke-width="0.8"/>
       <line x1="3" y1="4" x2="3" y2="18" stroke="#fff" stroke-width="0.9" opacity="0.6"/>
@@ -278,15 +293,12 @@ function getRolexDatejustSvg(mat) {
       <circle cx="12" cy="11" r="1.5" fill="#fff" opacity="0.75"/>
     </g>
 
-    <!-- Outer Fluted Bezel Ring -->
     <circle cx="${cx}" cy="${cy}" r="71" fill="none" stroke="url(#caseBevelGrad)" stroke-width="2"/>
     
-    <!-- 48 3D Fluted Bezel Facets -->
     <g id="datejustFlutedFacets">
       ${flutes}
     </g>
 
-    <!-- Inner Polished Bezel Step -->
     <circle cx="${cx}" cy="${cy}" r="57.5" fill="none" stroke="url(#caseBevelGrad)" stroke-width="1.4"/>
     <circle cx="${cx}" cy="${cy}" r="56.5" fill="none" stroke="#000" stroke-width="0.8" opacity="0.3"/>
   `;
@@ -334,17 +346,13 @@ function getRolexSubmarinerSvg(mat) {
   });
 
   return `
-    <!-- Drop Shadow -->
     <path d="M 88 92 C 58 140 58 242 88 290 L 192 290 C 222 242 222 140 192 92 Z" fill="#000" opacity="0.25" filter="blur(6px)" transform="translate(0, 5)"/>
     
-    <!-- Submariner Professional Case with Crown Guards -->
     <path d="M 88 92 C 58 142 58 240 88 290 L 102 290 C 100 274 106 266 114 263 L 166 263 C 174 266 180 274 178 290 L 192 290 C 216 250 216 230 215 210 C 218 206 225 202 225 197 L 225 185 C 225 180 218 176 215 172 C 216 152 216 132 192 92 L 178 92 C 180 108 174 116 166 119 L 114 119 C 106 116 100 108 102 92 Z" fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="1.3"/>
     
-    <!-- Crown Guard Chamfer Facets -->
     <path d="M 215 172 L 225 180 L 225 184 L 216 178 Z" fill="url(#caseBevelGrad)"/>
     <path d="M 215 210 L 225 202 L 225 198 L 216 204 Z" fill="url(#caseBevelGrad)"/>
 
-    <!-- Triplock Diver Crown inside Guards -->
     <g transform="translate(220, 180)">
       <rect x="0" y="2" width="14" height="18" rx="3.5" fill="${mat.crownMetal}" stroke="#000" stroke-opacity="0.3" stroke-width="0.8"/>
       <line x1="3" y1="4" x2="3" y2="18" stroke="#fff" stroke-width="1" opacity="0.6"/>
@@ -355,22 +363,18 @@ function getRolexSubmarinerSvg(mat) {
       <circle cx="12" cy="14" r="0.8" fill="#fff" opacity="0.8"/>
     </g>
 
-    <!-- Outer Coin-Edge Bezel Grip -->
     <circle cx="${cx}" cy="${cy}" r="73.5" fill="none" stroke="url(#caseMetalGrad)" stroke-width="1"/>
     <g id="submarinerCoinEdge">
       ${coinEdge}
     </g>
 
-    <!-- Ceramic Bezel Ring -->
     <circle cx="${cx}" cy="${cy}" r="71" fill="url(#ceramicGrad)" stroke="url(#caseBevelGrad)" stroke-width="1.5"/>
     <circle cx="${cx}" cy="${cy}" r="57.5" fill="none" stroke="url(#caseBevelGrad)" stroke-width="1.8"/>
 
-    <!-- 12 O'Clock Pearl Triangle -->
     <polygon points="${cx - 8},${cy - 68} ${cx + 8},${cy - 68} ${cx},${cy - 59}" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
     <circle cx="${cx}" cy="${cy - 64.5}" r="3.2" fill="#E6FFF0" stroke="#B0BEC5" stroke-width="1"/>
     <circle cx="${cx}" cy="${cy - 64.5}" r="1.5" fill="#FFFFFF"/>
 
-    <!-- Bezel Markings (10, 20, 30, 40, 50) -->
     <g font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="8.5" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">
       <text x="${marker10[0]}" y="${marker10[1]}">10</text>
       <text x="${marker20[0]}" y="${marker20[1]}">20</text>
@@ -387,12 +391,11 @@ function getRolexSubmarinerSvg(mat) {
   `;
 }
 
-// 3. Patek Philippe Nautilus (Porthole Hinge Ears, Octagonal Bezel)
+// 3. Patek Philippe Nautilus
 function getPatekNautilusSvg(mat) {
   return `
     <path d="M 94 96 L 186 96 C 218 135 242 165 242 191 C 242 217 218 247 186 286 L 94 286 C 62 247 38 217 38 191 C 38 165 62 135 94 96 Z" fill="#000" opacity="0.25" filter="blur(7px)" transform="translate(0, 5)"/>
     
-    <!-- Nautilus Case with Lateral Hinge Ears -->
     <path d="
       M 94 96 
       L 186 96 
@@ -409,21 +412,17 @@ function getPatekNautilusSvg(mat) {
       C 65 140 76 116 94 96 Z
     " fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="1.3"/>
 
-    <!-- Polished Bevel Edge on Hinge Ears -->
     <path d="M 42 182 L 42 200 C 44 206 54 212 64 216 L 64 213 C 56 209 46 204 46 199 L 46 183 Z" fill="url(#caseBevelGrad)"/>
     <path d="M 238 182 L 238 200 C 236 206 226 212 216 216 L 216 213 C 224 209 234 204 234 199 L 234 183 Z" fill="url(#caseBevelGrad)"/>
 
-    <!-- Miniature Screws on Ears -->
     <circle cx="48" cy="173" r="1.6" fill="${mat.screwFill}" stroke="${mat.screwSlot}" stroke-width="0.6"/>
     <line x1="46.8" y1="173" x2="49.2" y2="173" stroke="${mat.screwSlot}" stroke-width="0.6"/>
     <circle cx="48" cy="209" r="1.6" fill="${mat.screwFill}" stroke="${mat.screwSlot}" stroke-width="0.6"/>
     <line x1="46.8" y1="209" x2="49.2" y2="209" stroke="${mat.screwSlot}" stroke-width="0.6"/>
 
-    <!-- Integrated Lug Center Plots -->
     <rect x="114" y="96" width="52" height="12" rx="2" fill="url(#caseBevelGrad)" stroke="#000" stroke-opacity="0.2" stroke-width="0.8"/>
     <rect x="114" y="278" width="52" height="12" rx="2" fill="url(#caseBevelGrad)" stroke="#000" stroke-opacity="0.2" stroke-width="0.8"/>
 
-    <!-- Recessed Crown -->
     <g transform="translate(231, 183)">
       <rect x="0" y="2" width="11" height="14" rx="2.5" fill="${mat.crownMetal}" stroke="#000" stroke-opacity="0.25" stroke-width="0.7"/>
       <line x1="3" y1="3" x2="3" y2="15" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
@@ -431,7 +430,6 @@ function getPatekNautilusSvg(mat) {
       <line x1="9" y1="3" x2="9" y2="15" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
     </g>
 
-    <!-- Rounded Octagonal Porthole Bezel -->
     <path d="
       M 108 123 
       L 172 123 
@@ -452,7 +450,6 @@ function getPatekNautilusSvg(mat) {
       Q 94 123 108 123 Z
     " fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="2.2"/>
 
-    <!-- Horizontal Satin Brushed Lines -->
     <g stroke="#FFFFFF" stroke-width="0.7" opacity="0.22">
       <line x1="86" y1="135" x2="194" y2="135"/>
       <line x1="74" y1="145" x2="206" y2="145"/>
@@ -473,7 +470,7 @@ function getPatekNautilusSvg(mat) {
   `;
 }
 
-// 4. Audemars Piguet Royal Oak (Octagon Bezel, 8 Hexagonal Screws)
+// 4. Audemars Piguet Royal Oak
 function getApRoyalOakSvg(mat) {
   let octagonOuterPoints = [];
   let boltCoords = [];
@@ -522,7 +519,6 @@ function getApRoyalOakSvg(mat) {
     <rect x="110" y="278" width="22" height="12" rx="1.5" fill="url(#caseBevelGrad)" stroke="#000" stroke-opacity="0.25" stroke-width="0.8"/>
     <rect x="148" y="278" width="22" height="12" rx="1.5" fill="url(#caseBevelGrad)" stroke="#000" stroke-opacity="0.25" stroke-width="0.8"/>
 
-    <!-- Hexagonal Crown -->
     <g transform="translate(220, 183)">
       <polygon points="0,4 0,12 5,16 12,14 14,8 10,1" fill="${mat.crownMetal}" stroke="#000" stroke-opacity="0.3" stroke-width="0.8"/>
       <line x1="3" y1="5" x2="9" y2="5" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
@@ -532,7 +528,6 @@ function getApRoyalOakSvg(mat) {
     <polygon points="${octagonOuterPoints.join(' ')}" fill="#121315" stroke="#000" stroke-width="3" transform="scale(1.02) translate(-2.8, -3.8)"/>
     <polygon points="${octagonOuterPoints.join(' ')}" fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="2"/>
 
-    <!-- Vertical Brushed Satin Lines -->
     <g stroke="#FFFFFF" stroke-width="0.6" opacity="0.2">
       <line x1="100" y1="125" x2="100" y2="257"/>
       <line x1="110" y1="121" x2="110" y2="261"/>
@@ -552,7 +547,7 @@ function getApRoyalOakSvg(mat) {
   `;
 }
 
-// 5. Patek Philippe Calatrava (Pure Dress Round, Stepped Bezel)
+// 5. Patek Philippe Calatrava
 function getPatekCalatravaSvg(mat) {
   return `
     <path d="M 94 94 C 64 140 64 242 94 288 L 186 288 C 216 242 216 140 186 94 Z" fill="#000" opacity="0.22" filter="blur(6px)" transform="translate(0, 5)"/>
@@ -574,7 +569,6 @@ function getPatekCalatravaSvg(mat) {
     <path d="M 96 287 C 84 264 74 237 70 210 L 67 215 C 72 242 82 267 96 287 Z" fill="url(#caseBevelGrad)"/>
     <path d="M 184 287 C 196 264 206 237 210 210 L 213 215 C 208 242 198 267 184 287 Z" fill="url(#caseBevelGrad)"/>
 
-    <!-- Vintage Onion Crown -->
     <g transform="translate(217, 182)">
       <path d="M 0 4 Q 4 1 8 4 L 11 9 Q 12 11 11 13 L 8 18 Q 4 21 0 18 Z" fill="${mat.crownMetal}" stroke="#000" stroke-opacity="0.25" stroke-width="0.7"/>
       <line x1="2" y1="5" x2="2" y2="17" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
@@ -592,7 +586,7 @@ function getPatekCalatravaSvg(mat) {
   `;
 }
 
-// 6. Cartier Santos (Square with 8 Screws, Blue Sapphire Cabochon)
+// 6. Cartier Santos
 function getCartierSantosSvg(mat) {
   const screws = [
     { x: 106, y: 125, angle: 30 },
@@ -620,7 +614,6 @@ function getCartierSantosSvg(mat) {
     <path d="M 58 126 C 56 160 56 224 58 258 L 62 254 C 60 224 60 160 62 130 Z" fill="url(#caseBevelGrad)"/>
     <path d="M 222 126 C 224 160 224 224 222 258 L 218 254 C 220 224 220 160 218 130 Z" fill="url(#caseBevelGrad)"/>
 
-    <!-- Cartier Crown with Blue Sapphire Gem -->
     <g transform="translate(220, 181)">
       <polygon points="0,3 0,17 7,19 12,14 12,6 7,1" fill="${mat.crownMetal}" stroke="#000" stroke-opacity="0.25" stroke-width="0.8"/>
       <circle cx="9" cy="10" r="3.6" fill="url(#cabochonGrad)" stroke="#1A237E" stroke-width="0.7"/>
@@ -636,30 +629,102 @@ function getCartierSantosSvg(mat) {
   `;
 }
 
-// ── DIAL GEOMETRY CONFIGS ──────────────────────
-const DIAL_FACE_CONFIGS = {
-  classic: { rx: 28, ringRx: 24 },
-  round:   { rx: 999, ringRx: 999 },
-  square:  { rx: 8,  ringRx: 6 },
-};
+// ── DYNAMIC DIAL MARKERS GENERATOR ─────────────
+function getHourMarkersSvg(style, markerColor) {
+  let s = style;
+  if (s === 'round')   s = 'diver';
+  if (s === 'square')  s = 'roman';
+  if (s === 'classic') s = 'baton';
 
-// ── UPDATE CASE GEOMETRY ───────────────────────
+  const lumeColor = '#E8FFF0';
+  const lumeBorder = markerColor || '#8B7355';
+
+  if (s === 'diver') {
+    // Rolex Submariner Maxi Lume Dial
+    let svg = `
+      <!-- 12h Inverted Triangle -->
+      <polygon points="${cx - 7},141 ${cx + 7},141 ${cx},153" fill="${lumeColor}" stroke="${lumeBorder}" stroke-width="1.3"/>
+      <!-- 6h & 9h Luminous Rectangular Batons -->
+      <rect x="${cx - 2.5}" y="228" width="5" height="12" rx="1.5" fill="${lumeColor}" stroke="${lumeBorder}" stroke-width="1.3"/>
+      <rect x="88" y="${cy - 2.5}" width="12" height="5" rx="1.5" fill="${lumeColor}" stroke="${lumeBorder}" stroke-width="1.3"/>
+    `;
+
+    // 1, 2, 4, 5, 7, 8, 10, 11 Maxi Dots
+    const dots = [1, 2, 4, 5, 7, 8, 10, 11];
+    dots.forEach(h => {
+      const rad = (h * 30 - 90) * (Math.PI / 180);
+      const x = (cx + 46.5 * Math.cos(rad)).toFixed(2);
+      const y = (cy + 46.5 * Math.sin(rad)).toFixed(2);
+      svg += `<circle cx="${x}" cy="${y}" r="3.6" fill="${lumeColor}" stroke="${lumeBorder}" stroke-width="1.3"/>`;
+    });
+    return svg;
+  }
+
+  if (s === 'roman') {
+    // Classic Roman Numerals
+    const numerals = [
+      { h: 12, text: 'XII', r: 46 },
+      { h: 1,  text: 'I',   r: 46 },
+      { h: 2,  text: 'II',  r: 46 },
+      { h: 4,  text: 'IV',  r: 46 },
+      { h: 5,  text: 'V',   r: 46 },
+      { h: 6,  text: 'VI',  r: 46 },
+      { h: 7,  text: 'VII', r: 46 },
+      { h: 8,  text: 'VIII',r: 46 },
+      { h: 9,  text: 'IX',  r: 46 },
+      { h: 10, text: 'X',   r: 46 },
+      { h: 11, text: 'XI',  r: 46 },
+    ];
+
+    let svg = `<g font-family="'Cormorant Garamond', Georgia, serif" font-size="9.5" font-weight="600" fill="${lumeBorder}" text-anchor="middle" dominant-baseline="central">`;
+    numerals.forEach(n => {
+      const rad = (n.h * 30 - 90) * (Math.PI / 180);
+      const x = (cx + n.r * Math.cos(rad)).toFixed(2);
+      const y = (cy + n.r * Math.sin(rad)).toFixed(2);
+      svg += `<text x="${x}" y="${y}">${n.text}</text>`;
+    });
+    svg += `</g>`;
+    return svg;
+  }
+
+  // Default / Baton style (Patek Nautilus / Royal Oak minimalist faceted indices)
+  let svg = `
+    <!-- 12h Double Baton -->
+    <line x1="${cx - 3}" y1="139" x2="${cx - 3}" y2="151" stroke="${lumeBorder}" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="${cx + 3}" y1="139" x2="${cx + 3}" y2="151" stroke="${lumeBorder}" stroke-width="2.2" stroke-linecap="round"/>
+  `;
+
+  for (let h = 1; h <= 11; h++) {
+    if (h === 3) continue; // date window
+    const rad = (h * 30 - 90) * (Math.PI / 180);
+    const r1 = 44, r2 = 53;
+    const x1 = (cx + r1 * Math.cos(rad)).toFixed(2);
+    const y1 = (cy + r1 * Math.sin(rad)).toFixed(2);
+    const x2 = (cx + r2 * Math.cos(rad)).toFixed(2);
+    const y2 = (cy + r2 * Math.sin(rad)).toFixed(2);
+    const sw = (h === 6 || h === 9) ? '2.4' : '1.8';
+    svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${lumeBorder}" stroke-width="${sw}" stroke-linecap="round"/>`;
+  }
+  return svg;
+}
+
+// ── UPDATE CASE & DIAL GEOMETRY ────────────────
 function updateCaseGeometry() {
   const defsEl = document.getElementById('watchDefs');
   const caseLayer = document.getElementById('caseLayer');
   const mat = CASE_MATERIALS[state.case] || CASE_MATERIALS.silver;
 
-  // 1. Update defs (linear/radial gradients & shaders)
-  if (defsEl) {
-    defsEl.innerHTML = getCaseDefs(state.case, state.dial);
-  }
-
-  // 2. Select & inject model SVG
   let shapeKey = state.shape;
   if (shapeKey === 'round') shapeKey = 'rolex-datejust';
   if (shapeKey === 'cushion') shapeKey = 'patek-nautilus';
   if (shapeKey === 'rectangular') shapeKey = 'cartier-santos';
 
+  // 1. Update defs (Gradients + strict clipPath)
+  if (defsEl) {
+    defsEl.innerHTML = getCaseDefs(state.case, state.dial, shapeKey);
+  }
+
+  // 2. Select & inject model SVG
   let modelSvg = '';
   switch (shapeKey) {
     case 'rolex-submariner':
@@ -687,56 +752,57 @@ function updateCaseGeometry() {
     caseLayer.innerHTML = modelSvg;
   }
 
-  // 3. Dial background & ring positioning
+  // 3. Dial background & ring positioning — STRICTLY LOCKED TO CASE APERTURE
   const dialBg = document.getElementById('dialBg');
   const dialRing = document.getElementById('dialRing');
-  const df = DIAL_FACE_CONFIGS[state.dialFace];
 
   if (shapeKey === 'cartier-santos') {
+    // Cartier Santos squircle dial
     if (dialBg) {
       dialBg.setAttribute('x', '80');
       dialBg.setAttribute('y', '131');
       dialBg.setAttribute('width', '120');
       dialBg.setAttribute('height', '120');
-      dialBg.setAttribute('rx', state.dialFace === 'round' ? '999' : (state.dialFace === 'square' ? '6' : '15'));
+      dialBg.setAttribute('rx', '15');
     }
     if (dialRing) {
       dialRing.setAttribute('x', '84');
       dialRing.setAttribute('y', '135');
       dialRing.setAttribute('width', '112');
       dialRing.setAttribute('height', '112');
-      dialRing.setAttribute('rx', state.dialFace === 'round' ? '999' : (state.dialFace === 'square' ? '4' : '12'));
+      dialRing.setAttribute('rx', '12');
     }
   } else if (shapeKey === 'patek-nautilus') {
+    // Patek Nautilus rounded-octagon dial
     if (dialBg) {
       dialBg.setAttribute('x', '78');
       dialBg.setAttribute('y', '131');
       dialBg.setAttribute('width', '124');
       dialBg.setAttribute('height', '120');
-      dialBg.setAttribute('rx', state.dialFace === 'round' ? '999' : (state.dialFace === 'square' ? '6' : '24'));
+      dialBg.setAttribute('rx', '24');
     }
     if (dialRing) {
       dialRing.setAttribute('x', '82');
       dialRing.setAttribute('y', '135');
       dialRing.setAttribute('width', '116');
       dialRing.setAttribute('height', '112');
-      dialRing.setAttribute('rx', state.dialFace === 'round' ? '999' : (state.dialFace === 'square' ? '4' : '20'));
+      dialRing.setAttribute('rx', '20');
     }
   } else {
-    // Round models (Rolex Datejust, Submariner, Royal Oak, Calatrava)
+    // All Round Models (Submariner, Datejust, Royal Oak, Calatrava) -> ALWAYS PERFECT CIRCLE!
     if (dialBg) {
-      dialBg.setAttribute('x', '83');
-      dialBg.setAttribute('y', '134');
-      dialBg.setAttribute('width', '114');
-      dialBg.setAttribute('height', '114');
-      dialBg.setAttribute('rx', state.dialFace === 'square' ? '12' : '999');
+      dialBg.setAttribute('x', '83.5');
+      dialBg.setAttribute('y', '134.5');
+      dialBg.setAttribute('width', '113');
+      dialBg.setAttribute('height', '113');
+      dialBg.setAttribute('rx', '999');
     }
     if (dialRing) {
-      dialRing.setAttribute('x', '87');
-      dialRing.setAttribute('y', '138');
-      dialRing.setAttribute('width', '106');
-      dialRing.setAttribute('height', '106');
-      dialRing.setAttribute('rx', state.dialFace === 'square' ? '8' : '999');
+      dialRing.setAttribute('x', '87.5');
+      dialRing.setAttribute('y', '138.5');
+      dialRing.setAttribute('width', '105');
+      dialRing.setAttribute('height', '105');
+      dialRing.setAttribute('rx', '999');
     }
   }
 
@@ -788,6 +854,31 @@ function selectOption(type, value) {
     if (value === 'round') mappedValue = 'rolex-datejust';
     if (value === 'cushion') mappedValue = 'patek-nautilus';
     if (value === 'rectangular') mappedValue = 'cartier-santos';
+
+    // Smart default marker adaptation per watch model
+    if (mappedValue === 'rolex-submariner') {
+      state.dialFace = 'diver';
+    } else if (mappedValue === 'cartier-santos') {
+      state.dialFace = 'roman';
+    } else if (mappedValue === 'patek-nautilus' || mappedValue === 'ap-royaloak') {
+      state.dialFace = 'baton';
+    } else if (mappedValue === 'rolex-datejust') {
+      state.dialFace = 'roman';
+    }
+
+    // Sync dialFace buttons in UI
+    document.querySelectorAll('[id^="dialFace-"]').forEach(btn => {
+      const isAct = (btn.id === `dialFace-${state.dialFace}`);
+      btn.classList.toggle('active', isAct);
+    });
+    const dfBadge = document.getElementById('dialFaceBadge');
+    if (dfBadge) dfBadge.textContent = LABELS.dialFace[state.dialFace];
+  }
+
+  if (type === 'dialFace') {
+    if (value === 'round')   mappedValue = 'diver';
+    if (value === 'square')  mappedValue = 'roman';
+    if (value === 'classic') mappedValue = 'baton';
   }
 
   state[type] = mappedValue;
@@ -817,7 +908,7 @@ function selectOption(type, value) {
     dial: 'Циферблат',
     strap: 'Ремешок',
     shape: 'Модель корпуса',
-    dialFace: 'Форма циферблата',
+    dialFace: 'Разметка циферблата',
   };
   const labelText = LABELS[type][mappedValue] || LABELS[type][value];
   showNotification('✓', 'Параметр обновлён', `${typeLabel[type] || type}: ${labelText}`);
@@ -831,7 +922,7 @@ function updateWatch() {
   // 1. Update Case Geometry & Shaders
   updateCaseGeometry();
 
-  // 2. Update Dial Elements
+  // 2. Update Dial Elements & Markers
   const dialBg        = document.getElementById('dialBg');
   const dialRing      = document.getElementById('dialRing');
   const dialInnerRing = document.getElementById('dialInnerRing');
@@ -857,7 +948,12 @@ function updateWatch() {
     const dateText = dateWindow.nextElementSibling;
     if (dateText) dateText.setAttribute('fill', d.dateText);
   }
-  if (hourMarkers)   hourMarkers.setAttribute('stroke', d.markers);
+
+  // Dynamic Markers (Submariner Diver Lume Dots / Roman / Batons)
+  if (hourMarkers) {
+    hourMarkers.innerHTML = getHourMarkersSvg(state.dialFace, d.markers);
+  }
+
   if (hourHand)      hourHand.setAttribute('stroke', d.hourHand);
   if (minuteHand)    minuteHand.setAttribute('stroke', d.minHand);
   if (secondHand)    secondHand.setAttribute('stroke', d.secHand);
@@ -988,14 +1084,14 @@ function resetDesign() {
   state.dial     = 'ivory';
   state.strap    = 'brown';
   state.shape    = 'rolex-datejust';
-  state.dialFace = 'classic';
+  state.dialFace = 'roman';
 
   const defaults = {
     case: 'silver',
     dial: 'ivory',
     strap: 'brown',
     shape: 'rolex-datejust',
-    dialFace: 'classic',
+    dialFace: 'roman',
   };
 
   ['case', 'dial', 'strap', 'shape', 'dialFace'].forEach(type => {

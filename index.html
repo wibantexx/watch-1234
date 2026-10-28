@@ -191,7 +191,10 @@
             <!-- Main SVG Watch -->
             <svg id="watchSvg" viewBox="0 0 280 380" xmlns="http://www.w3.org/2000/svg" class="watch-svg">
               <defs id="watchDefs">
-                <!-- Case shaders, gradients & filters dynamically updated by JS -->
+                <!-- Case shaders, gradients & clipPath dynamically updated by JS -->
+                <clipPath id="dialClip">
+                  <path id="dialClipPath" d="M 83.5 191 A 56.5 56.5 0 1 0 196.5 191 A 56.5 56.5 0 1 0 83.5 191 Z"/>
+                </clipPath>
               </defs>
 
               <!-- Strap top -->
@@ -239,7 +242,7 @@
               </g>
 
               <!-- Dial Layer -->
-              <g id="dialLayer">
+              <g id="dialLayer" clip-path="url(#dialClip)">
                 <!-- Dial background -->
                 <rect id="dialBg" x="83" y="134" width="114" height="114" rx="999" fill="#FFFFF0"/>
                 <!-- Dial ring decoration -->
@@ -329,8 +332,8 @@
             <span class="model-value" id="infoShape">Rolex Datejust (Рифлёный)</span>
           </div>
           <div class="model-info-row">
-            <span class="model-label">Циферблат</span>
-            <span class="model-value" id="infoDialFace">Классический</span>
+            <span class="model-label">Разметка циферблата</span>
+            <span class="model-value" id="infoDialFace">Римские цифры</span>
           </div>
           <div class="model-info-divider"></div>
           <div class="model-info-row model-price-row">
@@ -523,33 +526,39 @@
           </div>
         </div>
 
-        <!-- DIAL FACE SHAPE OPTIONS -->
+        <!-- DIAL MARKERS / STYLE OPTIONS -->
         <div class="option-group" id="dialFaceGroup">
           <div class="option-group-header">
-            <h3 class="option-group-title">Форма циферблата</h3>
-            <span class="option-group-badge" id="dialFaceBadge">Классический</span>
+            <h3 class="option-group-title">Разметка циферблата</h3>
+            <span class="option-group-badge" id="dialFaceBadge">Римские цифры</span>
           </div>
           <div class="option-grid">
-            <button class="option-btn active" id="dialFace-classic" onclick="selectOption('dialFace','classic')" aria-label="Классический циферблат">
-              <div class="option-swatch df-swatch-classic"></div>
+            <!-- 1. Rolex Submariner Diver Maxi Lume -->
+            <button class="option-btn" id="dialFace-diver" onclick="selectOption('dialFace','diver')" aria-label="Дайверские люминофорные метки">
+              <div class="option-swatch df-swatch-diver"></div>
               <div class="option-info">
-                <span class="option-name">Классический</span>
+                <span class="option-name">Дайверский люминофор <span class="brand-tag">Submariner</span></span>
+                <span class="option-sub">Точки Maxi-Dots и треугольник с люминофором</span>
                 <span class="option-price">Базовый</span>
               </div>
               <div class="option-check">✓</div>
             </button>
-            <button class="option-btn" id="dialFace-round" onclick="selectOption('dialFace','round')" aria-label="Круглый циферблат">
-              <div class="option-swatch df-swatch-round"></div>
+            <!-- 2. Roman Numerals -->
+            <button class="option-btn active" id="dialFace-roman" onclick="selectOption('dialFace','roman')" aria-label="Римские цифры">
+              <div class="option-swatch df-swatch-roman"></div>
               <div class="option-info">
-                <span class="option-name">Круглый</span>
+                <span class="option-name">Римские цифры <span class="brand-tag">Datejust / Santos</span></span>
+                <span class="option-sub">Благородные знаки XII, I, II, IV...</span>
                 <span class="option-price">Базовый</span>
               </div>
               <div class="option-check">✓</div>
             </button>
-            <button class="option-btn" id="dialFace-square" onclick="selectOption('dialFace','square')" aria-label="Квадратный циферблат">
-              <div class="option-swatch df-swatch-square"></div>
+            <!-- 3. Swiss Applied Batons -->
+            <button class="option-btn" id="dialFace-baton" onclick="selectOption('dialFace','baton')" aria-label="Швейцарские накладные индексы">
+              <div class="option-swatch df-swatch-baton"></div>
               <div class="option-info">
-                <span class="option-name">Квадратный</span>
+                <span class="option-name">Накладные индексы <span class="brand-tag">Nautilus / AP</span></span>
+                <span class="option-sub">Гранёные полированные маркеры со светонакопителем</span>
                 <span class="option-price">Базовый</span>
               </div>
               <div class="option-check">✓</div>
@@ -707,7 +716,7 @@
           <span id="modalShape">—</span>
         </div>
         <div class="summary-row">
-          <span>Форма циферблата</span>
+          <span>Разметка циферблата</span>
           <span id="modalDialFace">—</span>
         </div>
         <div class="summary-divider"></div>

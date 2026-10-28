@@ -701,35 +701,79 @@ body {
 .shape-swatch-cushion { border-radius: 30%; background: linear-gradient(135deg, #C8C8C8, #909090); }
 .shape-swatch-rect    { border-radius: 12%; background: linear-gradient(135deg, #C8C8C8, #909090); }
 
-/* Dial face swatches — silhouette of dial window with mini Roman numeral */
+/* Dial face / marker style swatches */
+.df-swatch-diver,
+.df-swatch-roman,
+.df-swatch-baton,
 .df-swatch-classic,
 .df-swatch-round,
 .df-swatch-square {
-  width: 40px; height: 40px;
+  width: 42px; height: 42px;
   flex-shrink: 0;
-  background: linear-gradient(135deg, #FFFDF8, #EDE5D8);
-  border: 2px solid #C5B090;
+  border: 1.5px solid #C5B090;
   box-shadow: 0 2px 8px rgba(0,0,0,.12);
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
 }
-.df-swatch-classic { border-radius: 28%; }
-.df-swatch-round   { border-radius: 50%; }
-.df-swatch-square  { border-radius: 6px; }
 
-.df-swatch-classic::after,
-.df-swatch-round::after,
-.df-swatch-square::after {
+.df-swatch-diver {
+  background: radial-gradient(circle, #1E232A 40%, #0F1216 100%);
+  border-color: #64748B;
+}
+.df-swatch-diver::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  width: 0; height: 0;
+  border-left: 3.5px solid transparent;
+  border-right: 3.5px solid transparent;
+  border-top: 5.5px solid #66FFA6;
+}
+.df-swatch-diver::after {
+  content: '';
+  position: absolute;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #66FFA6;
+  box-shadow: 0 0 4px #66FFA6;
+}
+
+.df-swatch-roman {
+  background: linear-gradient(135deg, #FFFDF8, #EDE5D8);
+}
+.df-swatch-roman::after {
   content: 'XII';
-  font-size: 10px;
+  font-size: 11px;
   font-family: var(--font-display);
   font-weight: 600;
   color: #8B7355;
   letter-spacing: .05em;
   line-height: 1;
 }
+
+.df-swatch-baton {
+  background: linear-gradient(135deg, #F8FAFC, #E2E8F0);
+  border-color: #94A3B8;
+}
+.df-swatch-baton::after {
+  content: '||';
+  font-size: 13px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: #64748B;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+/* Legacy aliases */
+.df-swatch-classic { background: linear-gradient(135deg, #F8FAFC, #E2E8F0); border-color: #94A3B8; }
+.df-swatch-classic::after { content: '||'; font-size: 13px; font-weight: 700; color: #64748B; letter-spacing: 2px; }
+.df-swatch-round { background: radial-gradient(circle, #1E232A 40%, #0F1216 100%); border-color: #64748B; }
+.df-swatch-square { background: linear-gradient(135deg, #FFFDF8, #EDE5D8); }
+.df-swatch-square::after { content: 'XII'; font-size: 11px; font-family: var(--font-display); font-weight: 600; color: #8B7355; }
 
 
 /* Action buttons */
