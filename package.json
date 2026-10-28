@@ -1,0 +1,12 @@
+{
+  "name": "watch-1234",
+  "version": "1.0.0",
+  "description": "12:34 — Watch Customizer Website",
+  "scripts": {
+    "dev": "npx serve . -p 3000",
+    "start": "npx serve . -p 3000"
+  },
+  "keywords": ["watch", "customizer", "12:34"],
+  "author": "12:34",
+  "license": "MIT"
+}

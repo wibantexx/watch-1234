@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12:34 — Конструктор часов</title>
+  <meta name="description" content="12:34 — создайте часы с индивидуальным дизайном. Выберите корпус, циферблат и ремешок, просмотрите результат в реальном времени и рассчитайте стоимость." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-text">12:34</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero" class="nav-link">Главная</a></li>
+        <li><a href="#constructor" class="nav-link">Конструктор</a></li>
+        <li><a href="#about" class="nav-link">О проекте</a></li>
+        <li><a href="#advantages" class="nav-link">Преимущества</a></li>
+      </ul>
+      <button class="burger" id="burger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#hero" class="mobile-link">Главная</a>
+      <a href="#constructor" class="mobile-link">Конструктор</a>
+      <a href="#about" class="mobile-link">О проекте</a>
+      <a href="#advantages" class="mobile-link">Преимущества</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-circle hero-circle-1"></div>
+      <div class="hero-circle hero-circle-2"></div>
+    </div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <p class="hero-tag">Ручная кастомизация</p>
+        <h1 class="hero-title">Создайте <span class="hero-accent">свои</span><br/>часы</h1>
+        <p class="hero-description">
+          «12:34» — это конструктор, в котором вы собираете часы под себя: выбираете корпус, циферблат и ремешок и видите результат в реальном времени.
+        </p>
+        <div class="hero-actions">
+          <a href="#constructor" class="btn btn-primary">Начать создание</a>
+          <a href="#about" class="btn btn-ghost">Узнать больше</a>
+        </div>
+      </div>
+      <div class="hero-watch-preview">
+        <div class="floating-card">
+          <!-- Hero watch SVG -->
+          <svg id="heroWatchSvg" viewBox="0 0 260 340" xmlns="http://www.w3.org/2000/svg" class="hero-svg">
+            <!-- Strap top -->
+            <rect x="95" y="20" width="70" height="75" rx="10" fill="#6B4226"/>
+            <!-- Strap buckle holes -->
+            <rect x="115" y="28" width="6" height="3" rx="1.5" fill="#8B5A2B" opacity="0.5"/>
+            <rect x="115" y="35" width="6" height="3" rx="1.5" fill="#8B5A2B" opacity="0.5"/>
+            <rect x="115" y="42" width="6" height="3" rx="1.5" fill="#8B5A2B" opacity="0.5"/>
+            <!-- Case -->
+            <rect x="55" y="82" width="150" height="176" rx="36" fill="#C0C0C0"/>
+            <rect x="60" y="87" width="140" height="166" rx="32" fill="#A8A8A8"/>
+            <!-- Crown -->
+            <rect x="201" y="148" width="14" height="22" rx="4" fill="#B0B0B0"/>
+            <!-- Dial -->
+            <rect x="72" y="99" width="116" height="142" rx="26" fill="#FFFFF0"/>
+            <!-- Dial ring -->
+            <circle cx="130" cy="170" r="52" fill="none" stroke="#D4C5A0" stroke-width="1.5" opacity="0.6"/>
+            <!-- Hour markers -->
+            <g stroke="#8B7355" stroke-width="2" stroke-linecap="round">
+              <line x1="130" y1="120" x2="130" y2="130"/>
+              <line x1="150" y1="122" x2="146" y2="131"/>
+              <line x1="166" y1="130" x2="160" y2="136"/>
+              <line x1="175" y1="148" x2="166" y2="151"/>
+              <line x1="175" y1="170" x2="166" y2="170"/>
+              <line x1="175" y1="192" x2="166" y2="189"/>
+              <line x1="166" y1="210" x2="160" y2="204"/>
+              <line x1="150" y1="218" x2="146" y2="209"/>
+              <line x1="130" y1="220" x2="130" y2="210"/>
+              <line x1="110" y1="218" x2="114" y2="209"/>
+              <line x1="94" y1="210" x2="100" y2="204"/>
+              <line x1="85" y1="192" x2="94" y2="189"/>
+              <line x1="85" y1="170" x2="94" y2="170"/>
+              <line x1="85" y1="148" x2="94" y2="151"/>
+              <line x1="94" y1="130" x2="100" y2="136"/>
+              <line x1="110" y1="122" x2="114" y2="131"/>
+            </g>
+            <!-- Logo on dial -->
+            <text x="130" y="155" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" fill="#8B7355" font-weight="500">12:34</text>
+            <!-- Hour hand -->
+            <line x1="130" y1="170" x2="130" y2="135" stroke="#4A3728" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- Minute hand -->
+            <line x1="130" y1="170" x2="158" y2="155" stroke="#4A3728" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Second hand -->
+            <line x1="130" y1="170" x2="110" y2="198" stroke="#8B6914" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Center dot -->
+            <circle cx="130" cy="170" r="4" fill="#4A3728"/>
+            <!-- Strap bottom -->
+            <rect x="95" y="245" width="70" height="75" rx="10" fill="#6B4226"/>
+            <!-- Clasp -->
+            <rect x="108" y="274" width="44" height="12" rx="4" fill="#8B5A2B"/>
+            <rect x="126" y="272" width="8" height="16" rx="2" fill="#7A4A1A" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="hero-badge">
+          <span class="badge-price">от 35 000 ₸</span>
+          <span class="badge-label">Базовая комплектация</span>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span class="scroll-text">Прокрутите вниз</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- CONSTRUCTOR SECTION -->
+  <section class="constructor-section" id="constructor">
+    <div class="section-header">
+      <p class="section-tag">Конструктор</p>
+      <h2 class="section-title">Соберите свои часы</h2>
+      <p class="section-desc">Выберите каждый элемент и наблюдайте за результатом в режиме реального времени</p>
+    </div>
+
+    <div class="constructor-layout">
+      <!-- Watch Preview -->
+      <div class="watch-preview-panel">
+        <div class="preview-wrapper">
+          <div class="preview-glow"></div>
+          <div class="watch-container">
+            <!-- Main SVG Watch -->
+            <svg id="watchSvg" viewBox="0 0 280 380" xmlns="http://www.w3.org/2000/svg" class="watch-svg">
+              <!-- Strap top -->
+              <rect id="strapTop" x="100" y="18" width="80" height="88" rx="14" fill="#6B4226"/>
+              <!-- Strap texture lines top -->
+              <g id="strapTopTexture" opacity="0.35">
+                <line x1="116" y1="30" x2="165" y2="30" stroke="#fff" stroke-width="1"/>
+                <line x1="116" y1="40" x2="165" y2="40" stroke="#fff" stroke-width="1"/>
+                <line x1="116" y1="50" x2="165" y2="50" stroke="#fff" stroke-width="1"/>
+                <line x1="116" y1="60" x2="165" y2="60" stroke="#fff" stroke-width="1"/>
+                <line x1="116" y1="70" x2="165" y2="70" stroke="#fff" stroke-width="1"/>
+                <line x1="116" y1="80" x2="165" y2="80" stroke="#fff" stroke-width="1"/>
+                <line x1="116" y1="90" x2="165" y2="90" stroke="#fff" stroke-width="1"/>
+              </g>
+              <!-- Buckle holes top -->
+              <rect x="128" y="35" width="8" height="4" rx="2" fill="#000" opacity="0.25"/>
+              <rect x="128" y="48" width="8" height="4" rx="2" fill="#000" opacity="0.25"/>
+              <rect x="128" y="61" width="8" height="4" rx="2" fill="#000" opacity="0.25"/>
+              <rect x="128" y="74" width="8" height="4" rx="2" fill="#000" opacity="0.25"/>
+              <rect x="128" y="87" width="8" height="4" rx="2" fill="#000" opacity="0.25"/>
+
+              <!-- Case outer shadow -->
+              <rect x="55" y="93" width="170" height="195" rx="42" fill="#9A9A9A" opacity="0.3" transform="translate(3,4)"/>
+              <!-- Case body -->
+              <rect id="caseBody" x="55" y="93" width="170" height="195" rx="42" fill="#C0C0C0"/>
+              <!-- Case bezel gradient overlay -->
+              <rect id="caseBezel" x="63" y="101" width="154" height="179" rx="36" fill="#B0B0B0"/>
+              <!-- Case shine -->
+              <ellipse cx="100" cy="120" rx="28" ry="14" fill="white" opacity="0.15" transform="rotate(-30, 100, 120)"/>
+
+              <!-- Crown -->
+              <rect id="crownEl" x="220" y="165" width="17" height="28" rx="5" fill="#B0B0B0"/>
+              <line x1="222" y1="172" x2="235" y2="172" stroke="white" stroke-width="0.8" opacity="0.4"/>
+              <line x1="222" y1="179" x2="235" y2="179" stroke="white" stroke-width="0.8" opacity="0.4"/>
+              <line x1="222" y1="186" x2="235" y2="186" stroke="white" stroke-width="0.8" opacity="0.4"/>
+
+              <!-- Dial background -->
+              <rect id="dialBg" x="76" y="112" width="128" height="157" rx="28" fill="#FFFFF0"/>
+              <!-- Dial ring decoration -->
+              <rect id="dialRing" x="82" y="118" width="116" height="145" rx="24" fill="none" stroke="#D4C5A0" stroke-width="1.5" opacity="0.7"/>
+              <!-- Dial inner ring -->
+              <circle id="dialInnerRing" cx="140" cy="191" r="56" fill="none" stroke="#D4C5A0" stroke-width="0.8" opacity="0.5"/>
+
+              <!-- Hour markers (12 positions) -->
+              <g id="hourMarkers" stroke="#8B7355" stroke-linecap="round">
+                <!-- 12 -->
+                <line x1="140" y1="136" x2="140" y2="148" stroke-width="2.5"/>
+                <!-- 1 -->
+                <line x1="161" y1="140" x2="155" y2="151" stroke-width="1.5"/>
+                <!-- 2 -->
+                <line x1="177" y1="156" x2="167" y2="162" stroke-width="1.5"/>
+                <!-- 3 -->
+                <line x1="183" y1="177" x2="170" y2="177" stroke-width="2.5"/>
+                <!-- 4 -->
+                <line x1="177" y1="198" x2="167" y2="192" stroke-width="1.5"/>
+                <!-- 5 -->
+                <line x1="161" y1="214" x2="155" y2="203" stroke-width="1.5"/>
+                <!-- 6 -->
+                <line x1="140" y1="220" x2="140" y2="232" stroke-width="2.5" transform="translate(0,-9)"/>
+                <!-- 7 -->
+                <line x1="119" y1="214" x2="125" y2="203" stroke-width="1.5"/>
+                <!-- 8 -->
+                <line x1="103" y1="198" x2="113" y2="192" stroke-width="1.5"/>
+                <!-- 9 -->
+                <line x1="97" y1="177" x2="110" y2="177" stroke-width="2.5"/>
+                <!-- 10 -->
+                <line x1="103" y1="156" x2="113" y2="162" stroke-width="1.5"/>
+                <!-- 11 -->
+                <line x1="119" y1="140" x2="125" y2="151" stroke-width="1.5"/>
+              </g>
+
+              <!-- Brand name on dial -->
+              <text id="dialBrand" x="140" y="168" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" fill="#8B7355" font-weight="500" letter-spacing="2">12:34</text>
+              <text id="dialSub" x="140" y="180" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" fill="#B0A080" font-weight="300" letter-spacing="1.5">HANDCRAFTED</text>
+
+              <!-- Date window -->
+              <rect id="dateWindow" x="158" y="186" width="20" height="14" rx="2" fill="white" stroke="#C5B090" stroke-width="1"/>
+              <text x="168" y="197" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#4A3728" font-weight="500">27</text>
+
+              <!-- Hour hand -->
+              <line id="hourHand" x1="140" y1="191" x2="140" y2="152" stroke="#3A2920" stroke-width="4.5" stroke-linecap="round"/>
+              <!-- Minute hand -->
+              <line id="minuteHand" x1="140" y1="191" x2="172" y2="175" stroke="#3A2920" stroke-width="3" stroke-linecap="round"/>
+              <!-- Second hand -->
+              <line id="secondHand" x1="140" y1="191" x2="118" y2="219" stroke="#C8961A" stroke-width="1.8" stroke-linecap="round"/>
+              <!-- Second hand counterbalance -->
+              <line id="secondBalance" x1="140" y1="191" x2="148" y2="183" stroke="#C8961A" stroke-width="1.8" stroke-linecap="round"/>
+              <!-- Center cap -->
+              <circle cx="140" cy="191" r="5" fill="#3A2920"/>
+              <circle cx="140" cy="191" r="2" fill="#C8961A"/>
+
+              <!-- Strap bottom -->
+              <rect id="strapBottom" x="100" y="275" width="80" height="88" rx="14" fill="#6B4226"/>
+              <!-- Strap texture lines bottom -->
+              <g id="strapBottomTexture" opacity="0.35">
+                <line x1="116" y1="285" x2="165" y2="285" stroke="#fff" stroke-width="1"/>
+                <line x1="116" y1="295" x2="165" y2="295" stroke="#fff" stroke-width="1"/>
+                <line x1="116" y1="305" x2="165" y2="305" stroke="#fff" stroke-width="1"/>
+                <line x1="116" y1="315" x2="165" y2="315" stroke="#fff" stroke-width="1"/>
+                <line x1="116" y1="325" x2="165" y2="325" stroke="#fff" stroke-width="1"/>
+                <line x1="116" y1="335" x2="165" y2="335" stroke="#fff" stroke-width="1"/>
+                <line x1="116" y1="345" x2="165" y2="345" stroke="#fff" stroke-width="1"/>
+              </g>
+              <!-- Clasp -->
+              <rect id="claspBg" x="112" y="305" width="56" height="18" rx="5" fill="#8B5A2B"/>
+              <rect id="claspPin" x="136" y="302" width="8" height="24" rx="3" fill="#7A4A1A"/>
+              <rect id="claspShine" x="114" y="307" width="52" height="4" rx="2" fill="white" opacity="0.15"/>
+            </svg>
+          </div>
+        </div>
+        <!-- Model info card -->
+        <div class="model-info-card" id="modelInfoCard">
+          <div class="model-info-row">
+            <span class="model-label">Корпус</span>
+            <span class="model-value" id="infoCase">Серебряный</span>
+          </div>
+          <div class="model-info-row">
+            <span class="model-label">Циферблат</span>
+            <span class="model-value" id="infoDial">Слоновая кость</span>
+          </div>
+          <div class="model-info-row">
+            <span class="model-label">Ремешок</span>
+            <span class="model-value" id="infoStrap">Коричневый</span>
+          </div>
+          <div class="model-info-row">
+            <span class="model-label">Форма</span>
+            <span class="model-value" id="infoShape">Круглый</span>
+          </div>
+          <div class="model-info-row">
+            <span class="model-label">Циферблат</span>
+            <span class="model-value" id="infoDialFace">Классический</span>
+          </div>
+          <div class="model-info-divider"></div>
+          <div class="model-info-row model-price-row">
+            <span class="model-label">Итого</span>
+            <span class="model-price" id="totalPrice">35 000 ₸</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Options Panel -->
+      <div class="options-panel">
+        <!-- CASE OPTIONS -->
+        <div class="option-group" id="caseGroup">
+          <div class="option-group-header">
+            <h3 class="option-group-title">Корпус</h3>
+            <span class="option-group-badge" id="caseBadge">Серебряный</span>
+          </div>
+          <div class="option-grid">
+            <button class="option-btn active" id="case-silver" onclick="selectOption('case','silver')" aria-label="Серебряный корпус">
+              <div class="option-swatch" style="background: linear-gradient(135deg,#E8E8E8,#B0B0B0)"></div>
+              <div class="option-info">
+                <span class="option-name">Серебряный</span>
+                <span class="option-price">Базовый</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <button class="option-btn" id="case-black" onclick="selectOption('case','black')" aria-label="Чёрный корпус">
+              <div class="option-swatch" style="background: linear-gradient(135deg,#4A4A4A,#1A1A1A)"></div>
+              <div class="option-info">
+                <span class="option-name">Чёрный</span>
+                <span class="option-price">+3 000 ₸</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <button class="option-btn" id="case-gold" onclick="selectOption('case','gold')" aria-label="Золотой корпус">
+              <div class="option-swatch" style="background: linear-gradient(135deg,#F5D060,#C8961A)"></div>
+              <div class="option-info">
+                <span class="option-name">Золотой</span>
+                <span class="option-price">+5 000 ₸</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- DIAL OPTIONS -->
+        <div class="option-group" id="dialGroup">
+          <div class="option-group-header">
+            <h3 class="option-group-title">Циферблат</h3>
+            <span class="option-group-badge" id="dialBadge">Слоновая кость</span>
+          </div>
+          <div class="option-grid">
+            <button class="option-btn active" id="dial-ivory" onclick="selectOption('dial','ivory')" aria-label="Слоновая кость">
+              <div class="option-swatch" style="background: linear-gradient(135deg,#FFFFF0,#EDE0B0)"></div>
+              <div class="option-info">
+                <span class="option-name">Слоновая кость</span>
+                <span class="option-price">Базовый</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <button class="option-btn" id="dial-green" onclick="selectOption('dial','green')" aria-label="Зелёный циферблат">
+              <div class="option-swatch" style="background: linear-gradient(135deg,#5C8B6E,#2D5A3D)"></div>
+              <div class="option-info">
+                <span class="option-name">Зелёный</span>
+                <span class="option-price">Базовый</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <button class="option-btn" id="dial-navy" onclick="selectOption('dial','navy')" aria-label="Тёмно-синий циферблат">
+              <div class="option-swatch" style="background: linear-gradient(135deg,#2A3F6B,#101D3A)"></div>
+              <div class="option-info">
+                <span class="option-name">Тёмно-синий</span>
+                <span class="option-price">Базовый</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- STRAP OPTIONS -->
+        <div class="option-group" id="strapGroup">
+          <div class="option-group-header">
+            <h3 class="option-group-title">Ремешок</h3>
+            <span class="option-group-badge" id="strapBadge">Коричневый</span>
+          </div>
+          <div class="option-grid">
+            <button class="option-btn active" id="strap-brown" onclick="selectOption('strap','brown')" aria-label="Коричневый ремешок">
+              <div class="option-swatch" style="background: linear-gradient(135deg,#9B6A3A,#6B4226)"></div>
+              <div class="option-info">
+                <span class="option-name">Коричневый</span>
+                <span class="option-price">Базовый</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <button class="option-btn" id="strap-black" onclick="selectOption('strap','black')" aria-label="Чёрный ремешок">
+              <div class="option-swatch" style="background: linear-gradient(135deg,#3A3A3A,#111111)"></div>
+              <div class="option-info">
+                <span class="option-name">Чёрный</span>
+                <span class="option-price">Базовый</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <button class="option-btn" id="strap-steel" onclick="selectOption('strap','steel')" aria-label="Стальной ремешок">
+              <div class="option-swatch" style="background: linear-gradient(135deg,#D0D0D0,#909090)"></div>
+              <div class="option-info">
+                <span class="option-name">Стальной</span>
+                <span class="option-price">+4 000 ₸</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+          </div>
+        </div>
+
+
+        <!-- SHAPE OPTIONS -->
+        <div class="option-group" id="shapeGroup">
+          <div class="option-group-header">
+            <h3 class="option-group-title">Форма корпуса</h3>
+            <span class="option-group-badge" id="shapeBadge">Круглый</span>
+          </div>
+          <div class="option-grid">
+            <button class="option-btn active" id="shape-round" onclick="selectOption('shape','round')" aria-label="Круглый корпус">
+              <div class="option-swatch shape-swatch-round"></div>
+              <div class="option-info">
+                <span class="option-name">Круглый</span>
+                <span class="option-price">Базовый</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <button class="option-btn" id="shape-cushion" onclick="selectOption('shape','cushion')" aria-label="Корпус-подушка">
+              <div class="option-swatch shape-swatch-cushion"></div>
+              <div class="option-info">
+                <span class="option-name">Подушка</span>
+                <span class="option-price">+2 000 ₸</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <button class="option-btn" id="shape-rectangular" onclick="selectOption('shape','rectangular')" aria-label="Прямоугольный корпус">
+              <div class="option-swatch shape-swatch-rect"></div>
+              <div class="option-info">
+                <span class="option-name">Прямоугольный</span>
+                <span class="option-price">Базовый</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- DIAL FACE SHAPE OPTIONS -->
+        <div class="option-group" id="dialFaceGroup">
+          <div class="option-group-header">
+            <h3 class="option-group-title">Форма циферблата</h3>
+            <span class="option-group-badge" id="dialFaceBadge">Классический</span>
+          </div>
+          <div class="option-grid">
+            <button class="option-btn active" id="dialFace-classic" onclick="selectOption('dialFace','classic')" aria-label="Классический циферблат">
+              <div class="option-swatch df-swatch-classic"></div>
+              <div class="option-info">
+                <span class="option-name">Классический</span>
+                <span class="option-price">Базовый</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <button class="option-btn" id="dialFace-round" onclick="selectOption('dialFace','round')" aria-label="Круглый циферблат">
+              <div class="option-swatch df-swatch-round"></div>
+              <div class="option-info">
+                <span class="option-name">Круглый</span>
+                <span class="option-price">Базовый</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <button class="option-btn" id="dialFace-square" onclick="selectOption('dialFace','square')" aria-label="Квадратный циферблат">
+              <div class="option-swatch df-swatch-square"></div>
+              <div class="option-info">
+                <span class="option-name">Квадратный</span>
+                <span class="option-price">Базовый</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="action-buttons">
+          <button class="btn btn-primary btn-full" id="saveDesignBtn" onclick="saveDesign()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Сохранить мой дизайн
+          </button>
+          <button class="btn btn-outline btn-full" id="resetBtn" onclick="resetDesign()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+            Сбросить настройки
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="about-section" id="about">
+    <div class="about-container">
+      <div class="about-content">
+        <p class="section-tag">О проекте</p>
+        <h2 class="section-title">Философия 12:34</h2>
+        <p class="about-text">
+          Время «12:34» — один из самых узнаваемых моментов на циферблате. Именно в этот момент стрелки складываются в гармоничный рисунок. Мы сделали это время символом нашего проекта.
+        </p>
+        <p class="about-text">
+          «12:34» — это не просто конструктор. Это инструмент для тех, кто хочет носить что-то по-настоящему своё. Выберите каждую деталь и создайте часы, которые расскажут о вас без слов.
+        </p>
+        <div class="about-stats">
+          <div class="stat-item">
+            <span class="stat-number">243</span>
+            <span class="stat-label">варианта сборки</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">5</span>
+            <span class="stat-label">элементов кастомизации</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">∞</span>
+            <span class="stat-label">ваш стиль</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-card about-card-1">
+          <div class="about-card-icon">🎨</div>
+          <p>Дизайн под вас</p>
+        </div>
+        <div class="about-card about-card-2">
+          <div class="about-card-icon">⚡</div>
+          <p>Мгновенный результат</p>
+        </div>
+        <div class="about-card about-card-3">
+          <div class="about-card-icon">💎</div>
+          <p>Премиум качество</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADVANTAGES SECTION -->
+  <section class="advantages-section" id="advantages">
+    <div class="section-header">
+      <p class="section-tag">Преимущества</p>
+      <h2 class="section-title">Почему «12:34»</h2>
+    </div>
+    <div class="advantages-grid">
+      <div class="advantage-card" id="adv-1">
+        <div class="adv-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Просмотр в реальном времени</h3>
+        <p>Каждый ваш выбор немедленно отображается в окне предварительного просмотра. Видите изменения — принимаете решения.</p>
+      </div>
+      <div class="advantage-card" id="adv-2">
+        <div class="adv-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <h3>Прозрачное ценообразование</h3>
+        <p>Стоимость рассчитывается автоматически и прозрачно. Никаких скрытых платежей — только то, что вы выбрали.</p>
+      </div>
+      <div class="advantage-card" id="adv-3">
+        <div class="adv-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Без регистрации</h3>
+        <p>Начните создавать сразу — не нужно создавать аккаунт или вводить личные данные. Ваше время — ваше.</p>
+      </div>
+      <div class="advantage-card" id="adv-4">
+        <div class="adv-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <h3>Адаптивный интерфейс</h3>
+        <p>Конструктор одинаково удобен на компьютере, планшете и смартфоне. Создавайте где угодно.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-logo">
+        <span class="logo-text">12:34</span>
+        <p class="footer-tagline">Ваши часы. Ваш стиль.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#constructor" class="footer-link">Конструктор</a>
+        <a href="#about" class="footer-link">О проекте</a>
+        <a href="#advantages" class="footer-link">Преимущества</a>
+      </div>
+      <div class="footer-disclaimer">
+        <p>Проект является демонстрационным. Цены указаны в ознакомительных целях.</p>
+        <p class="footer-copy">© 2026 12:34. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- NOTIFICATION -->
+  <div class="notification" id="notification">
+    <div class="notification-icon" id="notifIcon">✓</div>
+    <div class="notification-content">
+      <p class="notif-title" id="notifTitle">Дизайн сохранён!</p>
+      <p class="notif-body" id="notifBody"></p>
+    </div>
+    <button class="notif-close" onclick="closeNotification()">×</button>
+  </div>
+
+  <!-- SAVE MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal" id="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div class="modal-icon">🕐</div>
+      <h2 class="modal-title">Ваша модель готова!</h2>
+      <div class="modal-watch-summary" id="modalSummary">
+        <div class="summary-row">
+          <span>Корпус</span>
+          <span id="modalCase">—</span>
+        </div>
+        <div class="summary-row">
+          <span>Циферблат</span>
+          <span id="modalDial">—</span>
+        </div>
+        <div class="summary-row">
+          <span>Ремешок</span>
+          <span id="modalStrap">—</span>
+        </div>
+        <div class="summary-row">
+          <span>Форма корпуса</span>
+          <span id="modalShape">—</span>
+        </div>
+        <div class="summary-row">
+          <span>Форма циферблата</span>
+          <span id="modalDialFace">—</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-row summary-total">
+          <span>Итоговая стоимость</span>
+          <span id="modalTotal">—</span>
+        </div>
+      </div>
+      <p class="modal-note">Это демонстрационный расчёт. Для оформления заказа свяжитесь с нами.</p>
+      <div class="modal-actions">
+        <button class="btn btn-primary" onclick="closeModal()">Продолжить сборку</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
