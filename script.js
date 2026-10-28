@@ -1,6 +1,6 @@
 /* =============================================
    12:34 — Watch Customizer
-   script.js
+   script.js — Hyper-Detailed Luxury Watch Configurator
    ============================================= */
 
 // ── STATE ──────────────────────────────────────
@@ -8,47 +8,129 @@ const state = {
   case:     'silver',
   dial:     'ivory',
   strap:    'brown',
-  shape:    'round',
+  shape:    'rolex-datejust',
   dialFace: 'classic',
 };
 
 const BASE_PRICE = 35000;
 
 const PRICES = {
-  case:     { silver: 0,    black: 3000, gold: 5000 },
-  strap:    { brown: 0,     black: 0,    steel: 4000 },
-  dial:     { ivory: 0,     green: 0,    navy: 0     },
-  shape:    { round: 0,     cushion: 2000, rectangular: 0 },
-  dialFace: { classic: 0,   round: 0,    square: 0   },
+  case: {
+    silver:   0,
+    black:    3000,
+    gold:     5000,
+    rosegold: 6000,
+  },
+  strap: {
+    brown: 0,
+    black: 0,
+    steel: 4000,
+  },
+  dial: {
+    ivory: 0,
+    green: 0,
+    navy:  0,
+  },
+  shape: {
+    'rolex-datejust':   0,
+    'rolex-submariner': 3000,
+    'patek-nautilus':   5000,
+    'ap-royaloak':      6000,
+    'patek-calatrava':  2000,
+    'cartier-santos':   4000,
+    // Aliases
+    round:       0,
+    cushion:     5000,
+    rectangular: 4000,
+  },
+  dialFace: {
+    classic: 0,
+    round:   0,
+    square:  0,
+  },
 };
 
 const LABELS = {
-  case:     { silver: 'Серебряный', black: 'Чёрный', gold: 'Золотой' },
-  dial:     { ivory: 'Слоновая кость', green: 'Зелёный', navy: 'Тёмно-синий' },
-  strap:    { brown: 'Коричневый', black: 'Чёрный', steel: 'Стальной' },
-  shape:    { round: 'Круглый', cushion: 'Подушка', rectangular: 'Прямоугольный' },
-  dialFace: { classic: 'Классический', round: 'Круглый', square: 'Квадратный' },
+  case: {
+    silver:   'Сталь 904L / Серебро',
+    black:    'Чёрный DLC / Керамика',
+    gold:     'Жёлтое золото 18k',
+    rosegold: 'Розовое золото Everose',
+  },
+  dial: {
+    ivory: 'Слоновая кость',
+    green: 'Изумрудный',
+    navy:  'Тёмно-синий',
+  },
+  strap: {
+    brown: 'Коричневая кожа',
+    black: 'Чёрная кожа',
+    steel: 'Стальной браслет',
+  },
+  shape: {
+    'rolex-datejust':   'Rolex Datejust (Рифлёный)',
+    'rolex-submariner': 'Rolex Submariner (Дайвер)',
+    'patek-nautilus':   'Patek Nautilus (Октагон)',
+    'ap-royaloak':      'AP Royal Oak (Винты)',
+    'patek-calatrava':  'Patek Calatrava (Классика)',
+    'cartier-santos':   'Cartier Santos (Квадратный)',
+    // Aliases
+    round:       'Rolex Datejust (Рифлёный)',
+    cushion:     'Patek Nautilus (Октагон)',
+    rectangular: 'Cartier Santos (Квадратный)',
+  },
+  dialFace: {
+    classic: 'Классический',
+    round:   'Круглый',
+    square:  'Квадратный',
+  },
 };
 
-// ── VISUAL CONFIGS ─────────────────────────────
-const CASE_COLORS = {
+// ── SHADER & MATERIAL CONFIGS ──────────────────
+const CASE_MATERIALS = {
   silver: {
-    body:   '#C0C0C0',
-    bezel:  '#B0B0B0',
-    crown:  '#B0B0B0',
-    shine:  'rgba(255,255,255,0.15)',
-  },
-  black: {
-    body:   '#3A3A3A',
-    bezel:  '#282828',
-    crown:  '#303030',
-    shine:  'rgba(255,255,255,0.08)',
+    caseMetal: ['#FFFFFF 0%', '#D2D7DD 20%', '#9EA7B2 45%', '#F2F5F8 60%', '#86919D 85%', '#C2CAD2 100%'],
+    caseBevel: ['#FFFFFF 0%', '#E0E5EA 40%', '#8A95A2 100%'],
+    fluteLight: '#FFFFFF',
+    fluteDark:  '#85909D',
+    screwFill:  '#E4E8EC',
+    screwSlot:  '#5A636E',
+    crownMetal: '#B4BDC7',
+    bodyFill:   '#C0C0C0',
+    bezelFill:  '#B0B0B0',
   },
   gold: {
-    body:   '#D4A820',
-    bezel:  '#C8961A',
-    crown:  '#C0900A',
-    shine:  'rgba(255,255,255,0.2)',
+    caseMetal: ['#FFF8D0 0%', '#F5D35D 20%', '#C8961A 45%', '#FFF3C2 60%', '#9E7008 85%', '#E2B83C 100%'],
+    caseBevel: ['#FFF9DE 0%', '#ECC450 40%', '#A0740D 100%'],
+    fluteLight: '#FFFBEA',
+    fluteDark:  '#9E7008',
+    screwFill:  '#FCE788',
+    screwSlot:  '#7A5200',
+    crownMetal: '#D6A522',
+    bodyFill:   '#D4A820',
+    bezelFill:  '#C8961A',
+  },
+  rosegold: {
+    caseMetal: ['#FFF0EA 0%', '#F1AE9A 20%', '#C76A52 45%', '#FFE7DF 60%', '#9F4733 85%', '#E09480 100%'],
+    caseBevel: ['#FFF5F0 0%', '#EAA490 40%', '#9E4431 100%'],
+    fluteLight: '#FFF6F2',
+    fluteDark:  '#9E4431',
+    screwFill:  '#F8C8BA',
+    screwSlot:  '#7A2C1C',
+    crownMetal: '#CF7D67',
+    bodyFill:   '#D4856E',
+    bezelFill:  '#C76A52',
+  },
+  black: {
+    caseMetal: ['#4C5158 0%', '#2B2E33 20%', '#181A1D 45%', '#5E646D 60%', '#121315 85%', '#32363C 100%'],
+    caseBevel: ['#6B727C 0%', '#3D4249 40%', '#141517 100%'],
+    fluteLight: '#656C76',
+    fluteDark:  '#1C1D20',
+    screwFill:  '#383B40',
+    screwSlot:  '#101112',
+    crownMetal: '#2A2D32',
+    bodyFill:   '#3A3A3A',
+    bezelFill:  '#282828',
   },
 };
 
@@ -121,6 +203,551 @@ const STRAP_COLORS = {
   },
 };
 
+// ── SVG SHADER GENERATOR ───────────────────────
+function getCaseDefs(material, dialColor) {
+  const mat = CASE_MATERIALS[material] || CASE_MATERIALS.silver;
+
+  let ceramic = '#181A1D';
+  if (dialColor === 'green') ceramic = '#143823';
+  if (dialColor === 'navy')  ceramic = '#112242';
+
+  return `
+    <linearGradient id="caseMetalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      ${mat.caseMetal.map(stop => {
+        const [color, offset] = stop.split(' ');
+        return `<stop offset="${offset}" stop-color="${color}"/>`;
+      }).join('')}
+    </linearGradient>
+    <linearGradient id="caseBevelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      ${mat.caseBevel.map(stop => {
+        const [color, offset] = stop.split(' ');
+        return `<stop offset="${offset}" stop-color="${color}"/>`;
+      }).join('')}
+    </linearGradient>
+    <linearGradient id="ceramicGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="${ceramic}"/>
+      <stop offset="50%" stop-color="#080A0C"/>
+      <stop offset="100%" stop-color="${ceramic}"/>
+    </linearGradient>
+    <radialGradient id="cabochonGrad" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#64B5F6"/>
+      <stop offset="30%" stop-color="#1E88E5"/>
+      <stop offset="75%" stop-color="#0D47A1"/>
+      <stop offset="100%" stop-color="#061F4A"/>
+    </radialGradient>
+  `;
+}
+
+// ── LUXURY CASE MODEL SVG GENERATORS ───────────
+const cx = 140, cy = 191;
+
+// 1. Rolex Datejust (Fluted Bezel, Oyster Lugs, Cyclops)
+function getRolexDatejustSvg(mat) {
+  let flutes = '';
+  for (let i = 0; i < 48; i++) {
+    const a1 = (i * 2 * Math.PI) / 48;
+    const amid = ((i + 0.5) * 2 * Math.PI) / 48;
+    const a2 = ((i + 1) * 2 * Math.PI) / 48;
+    const p1In = `${(cx + 57.5 * Math.cos(a1)).toFixed(2)},${(cy + 57.5 * Math.sin(a1)).toFixed(2)}`;
+    const pMidOut = `${(cx + 70.5 * Math.cos(amid)).toFixed(2)},${(cy + 70.5 * Math.sin(amid)).toFixed(2)}`;
+    const pMidIn = `${(cx + 57.5 * Math.cos(amid)).toFixed(2)},${(cy + 57.5 * Math.sin(amid)).toFixed(2)}`;
+    const p2In = `${(cx + 57.5 * Math.cos(a2)).toFixed(2)},${(cy + 57.5 * Math.sin(a2)).toFixed(2)}`;
+    flutes += `<polygon points="${p1In} ${pMidOut} ${pMidIn}" fill="${mat.fluteLight}"/>`;
+    flutes += `<polygon points="${pMidOut} ${p2In} ${pMidIn}" fill="${mat.fluteDark}"/>`;
+  }
+
+  return `
+    <!-- Drop Shadow -->
+    <path d="M 90 95 C 60 140 60 242 90 287 L 190 287 C 220 242 220 140 190 95 Z" fill="#000" opacity="0.22" filter="blur(6px)" transform="translate(0, 5)"/>
+    
+    <!-- Monobloc Oyster Case Body -->
+    <path d="M 92 95 C 60 142 60 240 92 287 L 102 287 C 100 274 106 266 114 263 L 166 263 C 174 266 180 274 178 287 L 188 287 C 220 240 220 142 188 95 L 178 95 C 180 108 174 116 166 119 L 114 119 C 106 116 100 108 102 95 Z" fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="1.2"/>
+    
+    <!-- Oyster Lug Polished Facets -->
+    <path d="M 92 95 C 80 120 70 145 66 168 L 63 162 C 68 138 78 114 92 95 Z" fill="url(#caseBevelGrad)"/>
+    <path d="M 188 95 C 200 120 210 145 214 168 L 217 162 C 212 138 202 114 188 95 Z" fill="url(#caseBevelGrad)"/>
+    <path d="M 92 287 C 80 262 70 237 66 214 L 63 220 C 68 244 78 268 92 287 Z" fill="url(#caseBevelGrad)"/>
+    <path d="M 188 287 C 200 262 210 237 214 214 L 217 220 C 212 244 202 268 188 287 Z" fill="url(#caseBevelGrad)"/>
+
+    <!-- Twinlock Fluted Crown at 3 o'clock -->
+    <g transform="translate(217, 180)">
+      <rect x="0" y="2" width="13" height="18" rx="3.5" fill="${mat.crownMetal}" stroke="#000" stroke-opacity="0.25" stroke-width="0.8"/>
+      <line x1="3" y1="4" x2="3" y2="18" stroke="#fff" stroke-width="0.9" opacity="0.6"/>
+      <line x1="6" y1="4" x2="6" y2="18" stroke="#fff" stroke-width="0.9" opacity="0.6"/>
+      <line x1="9" y1="4" x2="9" y2="18" stroke="#fff" stroke-width="0.9" opacity="0.6"/>
+      <circle cx="12" cy="11" r="1.5" fill="#fff" opacity="0.75"/>
+    </g>
+
+    <!-- Outer Fluted Bezel Ring -->
+    <circle cx="${cx}" cy="${cy}" r="71" fill="none" stroke="url(#caseBevelGrad)" stroke-width="2"/>
+    
+    <!-- 48 3D Fluted Bezel Facets -->
+    <g id="datejustFlutedFacets">
+      ${flutes}
+    </g>
+
+    <!-- Inner Polished Bezel Step -->
+    <circle cx="${cx}" cy="${cy}" r="57.5" fill="none" stroke="url(#caseBevelGrad)" stroke-width="1.4"/>
+    <circle cx="${cx}" cy="${cy}" r="56.5" fill="none" stroke="#000" stroke-width="0.8" opacity="0.3"/>
+  `;
+}
+
+// 2. Rolex Submariner (Ceramic Bezel, Crown Guards, Cyclops)
+function getRolexSubmarinerSvg(mat) {
+  let coinEdge = '';
+  for (let i = 0; i < 60; i++) {
+    const a = (i * 2 * Math.PI) / 60;
+    const x1 = (cx + 71.5 * Math.cos(a)).toFixed(2);
+    const y1 = (cy + 71.5 * Math.sin(a)).toFixed(2);
+    const x2 = (cx + 73.5 * Math.cos(a)).toFixed(2);
+    const y2 = (cy + 73.5 * Math.sin(a)).toFixed(2);
+    coinEdge += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="url(#caseBevelGrad)" stroke-width="1.4" stroke-linecap="round"/>`;
+  }
+
+  const marker10 = [cx + 64 * Math.cos(Math.PI/3 - Math.PI/2), cy + 64 * Math.sin(Math.PI/3 - Math.PI/2)];
+  const marker20 = [cx + 64 * Math.cos(2*Math.PI/3 - Math.PI/2), cy + 64 * Math.sin(2*Math.PI/3 - Math.PI/2)];
+  const marker30 = [cx + 64 * Math.cos(Math.PI - Math.PI/2), cy + 64 * Math.sin(Math.PI - Math.PI/2)];
+  const marker40 = [cx + 64 * Math.cos(4*Math.PI/3 - Math.PI/2), cy + 64 * Math.sin(4*Math.PI/3 - Math.PI/2)];
+  const marker50 = [cx + 64 * Math.cos(5*Math.PI/3 - Math.PI/2), cy + 64 * Math.sin(5*Math.PI/3 - Math.PI/2)];
+
+  let minuteTicks = '';
+  for (let m = 1; m < 15; m++) {
+    if (m % 5 === 0) continue;
+    const am = ((m * 6) * Math.PI) / 180 - Math.PI/2;
+    const r1 = 62.5, r2 = 66.5;
+    const x1 = (cx + r1 * Math.cos(am)).toFixed(2);
+    const y1 = (cy + r1 * Math.sin(am)).toFixed(2);
+    const x2 = (cx + r2 * Math.cos(am)).toFixed(2);
+    const y2 = (cy + r2 * Math.sin(am)).toFixed(2);
+    minuteTicks += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#FFFFFF" stroke-width="1.1" opacity="0.9"/>`;
+  }
+
+  let batons = '';
+  [5, 15, 25, 35, 45, 55].forEach(min => {
+    const ab = ((min * 6) * Math.PI) / 180 - Math.PI/2;
+    const r1 = 60, r2 = 67.5;
+    const x1 = (cx + r1 * Math.cos(ab)).toFixed(2);
+    const y1 = (cy + r1 * Math.sin(ab)).toFixed(2);
+    const x2 = (cx + r2 * Math.cos(ab)).toFixed(2);
+    const y2 = (cy + r2 * Math.sin(ab)).toFixed(2);
+    batons += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/>`;
+  });
+
+  return `
+    <!-- Drop Shadow -->
+    <path d="M 88 92 C 58 140 58 242 88 290 L 192 290 C 222 242 222 140 192 92 Z" fill="#000" opacity="0.25" filter="blur(6px)" transform="translate(0, 5)"/>
+    
+    <!-- Submariner Professional Case with Crown Guards -->
+    <path d="M 88 92 C 58 142 58 240 88 290 L 102 290 C 100 274 106 266 114 263 L 166 263 C 174 266 180 274 178 290 L 192 290 C 216 250 216 230 215 210 C 218 206 225 202 225 197 L 225 185 C 225 180 218 176 215 172 C 216 152 216 132 192 92 L 178 92 C 180 108 174 116 166 119 L 114 119 C 106 116 100 108 102 92 Z" fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="1.3"/>
+    
+    <!-- Crown Guard Chamfer Facets -->
+    <path d="M 215 172 L 225 180 L 225 184 L 216 178 Z" fill="url(#caseBevelGrad)"/>
+    <path d="M 215 210 L 225 202 L 225 198 L 216 204 Z" fill="url(#caseBevelGrad)"/>
+
+    <!-- Triplock Diver Crown inside Guards -->
+    <g transform="translate(220, 180)">
+      <rect x="0" y="2" width="14" height="18" rx="3.5" fill="${mat.crownMetal}" stroke="#000" stroke-opacity="0.3" stroke-width="0.8"/>
+      <line x1="3" y1="4" x2="3" y2="18" stroke="#fff" stroke-width="1" opacity="0.6"/>
+      <line x1="6" y1="4" x2="6" y2="18" stroke="#fff" stroke-width="1" opacity="0.6"/>
+      <line x1="9" y1="4" x2="9" y2="18" stroke="#fff" stroke-width="1" opacity="0.6"/>
+      <circle cx="12" cy="8" r="0.8" fill="#fff" opacity="0.8"/>
+      <circle cx="12" cy="11" r="0.9" fill="#fff" opacity="0.9"/>
+      <circle cx="12" cy="14" r="0.8" fill="#fff" opacity="0.8"/>
+    </g>
+
+    <!-- Outer Coin-Edge Bezel Grip -->
+    <circle cx="${cx}" cy="${cy}" r="73.5" fill="none" stroke="url(#caseMetalGrad)" stroke-width="1"/>
+    <g id="submarinerCoinEdge">
+      ${coinEdge}
+    </g>
+
+    <!-- Ceramic Bezel Ring -->
+    <circle cx="${cx}" cy="${cy}" r="71" fill="url(#ceramicGrad)" stroke="url(#caseBevelGrad)" stroke-width="1.5"/>
+    <circle cx="${cx}" cy="${cy}" r="57.5" fill="none" stroke="url(#caseBevelGrad)" stroke-width="1.8"/>
+
+    <!-- 12 O'Clock Pearl Triangle -->
+    <polygon points="${cx - 8},${cy - 68} ${cx + 8},${cy - 68} ${cx},${cy - 59}" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+    <circle cx="${cx}" cy="${cy - 64.5}" r="3.2" fill="#E6FFF0" stroke="#B0BEC5" stroke-width="1"/>
+    <circle cx="${cx}" cy="${cy - 64.5}" r="1.5" fill="#FFFFFF"/>
+
+    <!-- Bezel Markings (10, 20, 30, 40, 50) -->
+    <g font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="8.5" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">
+      <text x="${marker10[0]}" y="${marker10[1]}">10</text>
+      <text x="${marker20[0]}" y="${marker20[1]}">20</text>
+      <text x="${marker30[0]}" y="${marker30[1]}">30</text>
+      <text x="${marker40[0]}" y="${marker40[1]}">40</text>
+      <text x="${marker50[0]}" y="${marker50[1]}">50</text>
+    </g>
+
+    ${batons}
+    ${minuteTicks}
+
+    <circle cx="${cx}" cy="${cy}" r="57" fill="none" stroke="#000" stroke-width="0.8" opacity="0.35"/>
+    <circle cx="${cx}" cy="${cy}" r="56" fill="none" stroke="url(#caseBevelGrad)" stroke-width="0.8" opacity="0.7"/>
+  `;
+}
+
+// 3. Patek Philippe Nautilus (Porthole Hinge Ears, Octagonal Bezel)
+function getPatekNautilusSvg(mat) {
+  return `
+    <path d="M 94 96 L 186 96 C 218 135 242 165 242 191 C 242 217 218 247 186 286 L 94 286 C 62 247 38 217 38 191 C 38 165 62 135 94 96 Z" fill="#000" opacity="0.25" filter="blur(7px)" transform="translate(0, 5)"/>
+    
+    <!-- Nautilus Case with Lateral Hinge Ears -->
+    <path d="
+      M 94 96 
+      L 186 96 
+      C 204 116 215 140 216 164
+      C 224 168 238 174 238 182
+      L 238 200
+      C 238 208 224 214 216 218
+      C 215 242 204 266 186 286
+      L 176 286 C 178 274 172 266 164 263 L 116 263 C 108 266 102 274 104 286 L 94 286
+      C 76 266 65 242 64 218
+      C 56 214 42 208 42 200
+      L 42 182
+      C 42 174 56 168 64 164
+      C 65 140 76 116 94 96 Z
+    " fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="1.3"/>
+
+    <!-- Polished Bevel Edge on Hinge Ears -->
+    <path d="M 42 182 L 42 200 C 44 206 54 212 64 216 L 64 213 C 56 209 46 204 46 199 L 46 183 Z" fill="url(#caseBevelGrad)"/>
+    <path d="M 238 182 L 238 200 C 236 206 226 212 216 216 L 216 213 C 224 209 234 204 234 199 L 234 183 Z" fill="url(#caseBevelGrad)"/>
+
+    <!-- Miniature Screws on Ears -->
+    <circle cx="48" cy="173" r="1.6" fill="${mat.screwFill}" stroke="${mat.screwSlot}" stroke-width="0.6"/>
+    <line x1="46.8" y1="173" x2="49.2" y2="173" stroke="${mat.screwSlot}" stroke-width="0.6"/>
+    <circle cx="48" cy="209" r="1.6" fill="${mat.screwFill}" stroke="${mat.screwSlot}" stroke-width="0.6"/>
+    <line x1="46.8" y1="209" x2="49.2" y2="209" stroke="${mat.screwSlot}" stroke-width="0.6"/>
+
+    <!-- Integrated Lug Center Plots -->
+    <rect x="114" y="96" width="52" height="12" rx="2" fill="url(#caseBevelGrad)" stroke="#000" stroke-opacity="0.2" stroke-width="0.8"/>
+    <rect x="114" y="278" width="52" height="12" rx="2" fill="url(#caseBevelGrad)" stroke="#000" stroke-opacity="0.2" stroke-width="0.8"/>
+
+    <!-- Recessed Crown -->
+    <g transform="translate(231, 183)">
+      <rect x="0" y="2" width="11" height="14" rx="2.5" fill="${mat.crownMetal}" stroke="#000" stroke-opacity="0.25" stroke-width="0.7"/>
+      <line x1="3" y1="3" x2="3" y2="15" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
+      <line x1="6" y1="3" x2="6" y2="15" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
+      <line x1="9" y1="3" x2="9" y2="15" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
+    </g>
+
+    <!-- Rounded Octagonal Porthole Bezel -->
+    <path d="
+      M 108 123 
+      L 172 123 
+      Q 186 123 197 134 
+      L 204 141 
+      Q 214 151 214 165 
+      L 214 217 
+      Q 214 231 204 241 
+      L 197 248 
+      Q 186 259 172 259 
+      L 108 259 
+      Q 94 259 83 248 
+      L 76 241 
+      Q 66 231 66 217 
+      L 66 165 
+      Q 66 151 76 141 
+      L 83 134 
+      Q 94 123 108 123 Z
+    " fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="2.2"/>
+
+    <!-- Horizontal Satin Brushed Lines -->
+    <g stroke="#FFFFFF" stroke-width="0.7" opacity="0.22">
+      <line x1="86" y1="135" x2="194" y2="135"/>
+      <line x1="74" y1="145" x2="206" y2="145"/>
+      <line x1="69" y1="155" x2="211" y2="155"/>
+      <line x1="68" y1="165" x2="212" y2="165"/>
+      <line x1="68" y1="175" x2="212" y2="175"/>
+      <line x1="68" y1="185" x2="212" y2="185"/>
+      <line x1="68" y1="195" x2="212" y2="195"/>
+      <line x1="68" y1="205" x2="212" y2="205"/>
+      <line x1="68" y1="215" x2="212" y2="215"/>
+      <line x1="69" y1="225" x2="211" y2="225"/>
+      <line x1="74" y1="235" x2="206" y2="235"/>
+      <line x1="86" y1="245" x2="194" y2="245"/>
+    </g>
+
+    <rect x="76" y="129" width="128" height="124" rx="26" fill="none" stroke="url(#caseBevelGrad)" stroke-width="1.8"/>
+    <rect x="78" y="131" width="124" height="120" rx="24" fill="none" stroke="#000" stroke-width="0.8" opacity="0.3"/>
+  `;
+}
+
+// 4. Audemars Piguet Royal Oak (Octagon Bezel, 8 Hexagonal Screws)
+function getApRoyalOakSvg(mat) {
+  let octagonOuterPoints = [];
+  let boltCoords = [];
+
+  for (let i = 0; i < 8; i++) {
+    const angle = (i * 45 + 22.5) * (Math.PI / 180);
+    const xo = (cx + 72 * Math.cos(angle)).toFixed(2);
+    const yo = (cy + 72 * Math.sin(angle)).toFixed(2);
+    octagonOuterPoints.push(`${xo},${yo}`);
+
+    const xb = (cx + 64.5 * Math.cos(angle)).toFixed(2);
+    const yb = (cy + 64.5 * Math.sin(angle)).toFixed(2);
+    const slotAngle = (i * 45 + 22.5 + 90);
+    boltCoords.push({ x: xb, y: yb, slotAngle: slotAngle });
+  }
+
+  let bolts = boltCoords.map(b => `
+    <g transform="translate(${b.x}, ${b.y}) rotate(${b.slotAngle})">
+      <polygon points="-3,-1.7 -3,1.7 0,3.4 3,1.7 3,-1.7 0,-3.4" fill="${mat.screwFill}" stroke="${mat.screwSlot}" stroke-width="0.7"/>
+      <line x1="-2.4" y1="0" x2="2.4" y2="0" stroke="${mat.screwSlot}" stroke-width="0.8"/>
+    </g>
+  `).join('');
+
+  return `
+    <path d="M 88 94 L 192 94 L 224 148 L 224 234 L 192 288 L 88 288 L 56 234 L 56 148 Z" fill="#000" opacity="0.25" filter="blur(7px)" transform="translate(0, 5)"/>
+    
+    <path d="
+      M 90 94 
+      L 190 94 
+      L 220 146 
+      L 220 236 
+      L 190 288 
+      L 174 288 C 176 274 170 266 162 263 L 118 263 C 110 266 104 274 106 288 L 90 288 
+      L 60 236 
+      L 60 146 
+      L 90 94 Z
+    " fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="1.4"/>
+
+    <path d="M 90 94 L 60 146 L 64 149 L 93 96 Z" fill="url(#caseBevelGrad)"/>
+    <path d="M 190 94 L 220 146 L 216 149 L 187 96 Z" fill="url(#caseBevelGrad)"/>
+    <path d="M 60 236 L 90 288 L 93 285 L 64 233 Z" fill="url(#caseBevelGrad)"/>
+    <path d="M 220 236 L 190 288 L 187 285 L 216 233 Z" fill="url(#caseBevelGrad)"/>
+
+    <rect x="110" y="94" width="22" height="12" rx="1.5" fill="url(#caseBevelGrad)" stroke="#000" stroke-opacity="0.25" stroke-width="0.8"/>
+    <rect x="148" y="94" width="22" height="12" rx="1.5" fill="url(#caseBevelGrad)" stroke="#000" stroke-opacity="0.25" stroke-width="0.8"/>
+    <rect x="110" y="278" width="22" height="12" rx="1.5" fill="url(#caseBevelGrad)" stroke="#000" stroke-opacity="0.25" stroke-width="0.8"/>
+    <rect x="148" y="278" width="22" height="12" rx="1.5" fill="url(#caseBevelGrad)" stroke="#000" stroke-opacity="0.25" stroke-width="0.8"/>
+
+    <!-- Hexagonal Crown -->
+    <g transform="translate(220, 183)">
+      <polygon points="0,4 0,12 5,16 12,14 14,8 10,1" fill="${mat.crownMetal}" stroke="#000" stroke-opacity="0.3" stroke-width="0.8"/>
+      <line x1="3" y1="5" x2="9" y2="5" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
+      <line x1="3" y1="10" x2="9" y2="10" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
+    </g>
+
+    <polygon points="${octagonOuterPoints.join(' ')}" fill="#121315" stroke="#000" stroke-width="3" transform="scale(1.02) translate(-2.8, -3.8)"/>
+    <polygon points="${octagonOuterPoints.join(' ')}" fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="2"/>
+
+    <!-- Vertical Brushed Satin Lines -->
+    <g stroke="#FFFFFF" stroke-width="0.6" opacity="0.2">
+      <line x1="100" y1="125" x2="100" y2="257"/>
+      <line x1="110" y1="121" x2="110" y2="261"/>
+      <line x1="120" y1="120" x2="120" y2="262"/>
+      <line x1="130" y1="120" x2="130" y2="262"/>
+      <line x1="140" y1="120" x2="140" y2="262"/>
+      <line x1="150" y1="120" x2="150" y2="262"/>
+      <line x1="160" y1="120" x2="160" y2="262"/>
+      <line x1="170" y1="121" x2="170" y2="261"/>
+      <line x1="180" y1="125" x2="180" y2="257"/>
+    </g>
+
+    ${bolts}
+
+    <circle cx="${cx}" cy="${cy}" r="57.5" fill="none" stroke="url(#caseBevelGrad)" stroke-width="1.8"/>
+    <circle cx="${cx}" cy="${cy}" r="56.5" fill="none" stroke="#000" stroke-width="0.8" opacity="0.3"/>
+  `;
+}
+
+// 5. Patek Philippe Calatrava (Pure Dress Round, Stepped Bezel)
+function getPatekCalatravaSvg(mat) {
+  return `
+    <path d="M 94 94 C 64 140 64 242 94 288 L 186 288 C 216 242 216 140 186 94 Z" fill="#000" opacity="0.22" filter="blur(6px)" transform="translate(0, 5)"/>
+    
+    <path d="
+      M 96 95 
+      C 76 118 64 145 62 175
+      C 60 191 62 207 66 222
+      C 72 245 84 268 96 287
+      L 104 287 C 102 274 108 266 116 263 L 164 263 C 172 266 178 274 176 287 L 184 287
+      C 196 268 208 245 214 222
+      C 218 207 220 191 218 175
+      C 216 145 204 118 184 95
+      L 176 95 C 178 108 172 116 164 119 L 116 119 C 108 116 102 108 104 95 Z
+    " fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="1.2"/>
+
+    <path d="M 96 95 C 84 118 74 145 70 172 L 67 167 C 72 140 82 115 96 95 Z" fill="url(#caseBevelGrad)"/>
+    <path d="M 184 95 C 196 118 206 145 210 172 L 213 167 C 208 140 198 115 184 95 Z" fill="url(#caseBevelGrad)"/>
+    <path d="M 96 287 C 84 264 74 237 70 210 L 67 215 C 72 242 82 267 96 287 Z" fill="url(#caseBevelGrad)"/>
+    <path d="M 184 287 C 196 264 206 237 210 210 L 213 215 C 208 242 198 267 184 287 Z" fill="url(#caseBevelGrad)"/>
+
+    <!-- Vintage Onion Crown -->
+    <g transform="translate(217, 182)">
+      <path d="M 0 4 Q 4 1 8 4 L 11 9 Q 12 11 11 13 L 8 18 Q 4 21 0 18 Z" fill="${mat.crownMetal}" stroke="#000" stroke-opacity="0.25" stroke-width="0.7"/>
+      <line x1="2" y1="5" x2="2" y2="17" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
+      <line x1="5" y1="4" x2="5" y2="18" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
+      <line x1="8" y1="6" x2="8" y2="16" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
+    </g>
+
+    <circle cx="${cx}" cy="${cy}" r="71" fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="2"/>
+    <circle cx="${cx}" cy="${cy}" r="64" fill="none" stroke="url(#caseBevelGrad)" stroke-width="1.8"/>
+    
+    <path d="M 95 150 A 64 64 0 0 1 185 150" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
+
+    <circle cx="${cx}" cy="${cy}" r="57.5" fill="none" stroke="url(#caseBevelGrad)" stroke-width="1.4"/>
+    <circle cx="${cx}" cy="${cy}" r="56.5" fill="none" stroke="#000" stroke-width="0.8" opacity="0.3"/>
+  `;
+}
+
+// 6. Cartier Santos (Square with 8 Screws, Blue Sapphire Cabochon)
+function getCartierSantosSvg(mat) {
+  const screws = [
+    { x: 106, y: 125, angle: 30 },
+    { x: 174, y: 125, angle: 75 },
+    { x: 106, y: 257, angle: 120 },
+    { x: 174, y: 257, angle: 45 },
+    { x: 74,  y: 160, angle: 15 },
+    { x: 74,  y: 222, angle: 90 },
+    { x: 206, y: 160, angle: 60 },
+    { x: 206, y: 222, angle: 135 },
+  ];
+
+  const screwSvg = screws.map(s => `
+    <g transform="translate(${s.x}, ${s.y}) rotate(${s.angle})">
+      <circle cx="0" cy="0" r="2.2" fill="${mat.screwFill}" stroke="${mat.screwSlot}" stroke-width="0.6"/>
+      <line x1="-1.6" y1="0" x2="1.6" y2="0" stroke="${mat.screwSlot}" stroke-width="0.7"/>
+    </g>
+  `).join('');
+
+  return `
+    <rect x="56" y="98" width="168" height="190" rx="30" fill="#000" opacity="0.24" filter="blur(7px)" transform="translate(0, 5)"/>
+    
+    <rect x="58" y="98" width="164" height="188" rx="28" fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="1.4"/>
+    
+    <path d="M 58 126 C 56 160 56 224 58 258 L 62 254 C 60 224 60 160 62 130 Z" fill="url(#caseBevelGrad)"/>
+    <path d="M 222 126 C 224 160 224 224 222 258 L 218 254 C 220 224 220 160 218 130 Z" fill="url(#caseBevelGrad)"/>
+
+    <!-- Cartier Crown with Blue Sapphire Gem -->
+    <g transform="translate(220, 181)">
+      <polygon points="0,3 0,17 7,19 12,14 12,6 7,1" fill="${mat.crownMetal}" stroke="#000" stroke-opacity="0.25" stroke-width="0.8"/>
+      <circle cx="9" cy="10" r="3.6" fill="url(#cabochonGrad)" stroke="#1A237E" stroke-width="0.7"/>
+      <ellipse cx="8" cy="8.5" rx="1.5" ry="0.8" fill="#FFFFFF" opacity="0.7" transform="rotate(-30, 8, 8.5)"/>
+    </g>
+
+    <rect x="67" y="118" width="146" height="146" rx="22" fill="url(#caseMetalGrad)" stroke="url(#caseBevelGrad)" stroke-width="2.2"/>
+    
+    ${screwSvg}
+
+    <rect x="79" y="130" width="122" height="122" rx="16" fill="none" stroke="url(#caseBevelGrad)" stroke-width="1.8"/>
+    <rect x="80" y="131" width="120" height="120" rx="15" fill="none" stroke="#000" stroke-width="0.8" opacity="0.3"/>
+  `;
+}
+
+// ── DIAL GEOMETRY CONFIGS ──────────────────────
+const DIAL_FACE_CONFIGS = {
+  classic: { rx: 28, ringRx: 24 },
+  round:   { rx: 999, ringRx: 999 },
+  square:  { rx: 8,  ringRx: 6 },
+};
+
+// ── UPDATE CASE GEOMETRY ───────────────────────
+function updateCaseGeometry() {
+  const defsEl = document.getElementById('watchDefs');
+  const caseLayer = document.getElementById('caseLayer');
+  const mat = CASE_MATERIALS[state.case] || CASE_MATERIALS.silver;
+
+  // 1. Update defs (linear/radial gradients & shaders)
+  if (defsEl) {
+    defsEl.innerHTML = getCaseDefs(state.case, state.dial);
+  }
+
+  // 2. Select & inject model SVG
+  let shapeKey = state.shape;
+  if (shapeKey === 'round') shapeKey = 'rolex-datejust';
+  if (shapeKey === 'cushion') shapeKey = 'patek-nautilus';
+  if (shapeKey === 'rectangular') shapeKey = 'cartier-santos';
+
+  let modelSvg = '';
+  switch (shapeKey) {
+    case 'rolex-submariner':
+      modelSvg = getRolexSubmarinerSvg(mat);
+      break;
+    case 'patek-nautilus':
+      modelSvg = getPatekNautilusSvg(mat);
+      break;
+    case 'ap-royaloak':
+      modelSvg = getApRoyalOakSvg(mat);
+      break;
+    case 'patek-calatrava':
+      modelSvg = getPatekCalatravaSvg(mat);
+      break;
+    case 'cartier-santos':
+      modelSvg = getCartierSantosSvg(mat);
+      break;
+    case 'rolex-datejust':
+    default:
+      modelSvg = getRolexDatejustSvg(mat);
+      break;
+  }
+
+  if (caseLayer) {
+    caseLayer.innerHTML = modelSvg;
+  }
+
+  // 3. Dial background & ring positioning
+  const dialBg = document.getElementById('dialBg');
+  const dialRing = document.getElementById('dialRing');
+  const df = DIAL_FACE_CONFIGS[state.dialFace];
+
+  if (shapeKey === 'cartier-santos') {
+    if (dialBg) {
+      dialBg.setAttribute('x', '80');
+      dialBg.setAttribute('y', '131');
+      dialBg.setAttribute('width', '120');
+      dialBg.setAttribute('height', '120');
+      dialBg.setAttribute('rx', state.dialFace === 'round' ? '999' : (state.dialFace === 'square' ? '6' : '15'));
+    }
+    if (dialRing) {
+      dialRing.setAttribute('x', '84');
+      dialRing.setAttribute('y', '135');
+      dialRing.setAttribute('width', '112');
+      dialRing.setAttribute('height', '112');
+      dialRing.setAttribute('rx', state.dialFace === 'round' ? '999' : (state.dialFace === 'square' ? '4' : '12'));
+    }
+  } else if (shapeKey === 'patek-nautilus') {
+    if (dialBg) {
+      dialBg.setAttribute('x', '78');
+      dialBg.setAttribute('y', '131');
+      dialBg.setAttribute('width', '124');
+      dialBg.setAttribute('height', '120');
+      dialBg.setAttribute('rx', state.dialFace === 'round' ? '999' : (state.dialFace === 'square' ? '6' : '24'));
+    }
+    if (dialRing) {
+      dialRing.setAttribute('x', '82');
+      dialRing.setAttribute('y', '135');
+      dialRing.setAttribute('width', '116');
+      dialRing.setAttribute('height', '112');
+      dialRing.setAttribute('rx', state.dialFace === 'round' ? '999' : (state.dialFace === 'square' ? '4' : '20'));
+    }
+  } else {
+    // Round models (Rolex Datejust, Submariner, Royal Oak, Calatrava)
+    if (dialBg) {
+      dialBg.setAttribute('x', '83');
+      dialBg.setAttribute('y', '134');
+      dialBg.setAttribute('width', '114');
+      dialBg.setAttribute('height', '114');
+      dialBg.setAttribute('rx', state.dialFace === 'square' ? '12' : '999');
+    }
+    if (dialRing) {
+      dialRing.setAttribute('x', '87');
+      dialRing.setAttribute('y', '138');
+      dialRing.setAttribute('width', '106');
+      dialRing.setAttribute('height', '106');
+      dialRing.setAttribute('rx', state.dialFace === 'square' ? '8' : '999');
+    }
+  }
+
+  // 4. Toggle Cyclops Date Magnifier (Rolex models)
+  const cyclopsLens = document.getElementById('cyclopsLens');
+  if (cyclopsLens) {
+    const isRolex = (shapeKey === 'rolex-datejust' || shapeKey === 'rolex-submariner');
+    cyclopsLens.style.display = isRolex ? 'block' : 'none';
+  }
+}
+
 // ── INIT ───────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   // Initial render
@@ -129,13 +756,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // Navbar scroll effect
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
-    nav.classList.toggle('scrolled', window.scrollY > 50);
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
   });
 
   // Burger menu
-  document.getElementById('burger').addEventListener('click', () => {
-    document.getElementById('mobileMenu').classList.toggle('open');
-  });
+  const burger = document.getElementById('burger');
+  if (burger) {
+    burger.addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    });
+  }
 
   // Close mobile menu on nav link click
   document.querySelectorAll('.mobile-link').forEach(link => {
@@ -147,21 +777,32 @@ document.addEventListener('DOMContentLoaded', () => {
   // Intersection observer for reveal animations
   observeElements();
 
-  // Start live clock (second hand)
+  // Start live clock (hands real time)
   startClock();
 });
 
 // ── SELECT OPTION ──────────────────────────────
 function selectOption(type, value) {
-  state[type] = value;
+  let mappedValue = value;
+  if (type === 'shape') {
+    if (value === 'round') mappedValue = 'rolex-datejust';
+    if (value === 'cushion') mappedValue = 'patek-nautilus';
+    if (value === 'rectangular') mappedValue = 'cartier-santos';
+  }
+
+  state[type] = mappedValue;
 
   // Update active button states
   document.querySelectorAll(`[id^="${type}-"]`).forEach(btn => {
-    btn.classList.toggle('active', btn.id === `${type}-${value}`);
+    const isThis = (btn.id === `${type}-${mappedValue}` || btn.id === `${type}-${value}`);
+    btn.classList.toggle('active', isThis);
   });
 
   // Update badge
-  document.getElementById(`${type}Badge`).textContent = LABELS[type][value];
+  const badge = document.getElementById(`${type}Badge`);
+  if (badge) {
+    badge.textContent = LABELS[type][mappedValue] || LABELS[type][value];
+  }
 
   // Update info card
   updateInfoCard();
@@ -170,97 +811,29 @@ function selectOption(type, value) {
   animateWatch();
   updateWatch();
 
-  // Notify
+  // Notification
   const typeLabel = {
-    case: 'Корпус', dial: 'Циферблат', strap: 'Ремешок',
-    shape: 'Форма корпуса', dialFace: 'Форма циферблата',
+    case: 'Материал корпуса',
+    dial: 'Циферблат',
+    strap: 'Ремешок',
+    shape: 'Модель корпуса',
+    dialFace: 'Форма циферблата',
   };
-  showNotification('✓', 'Изменение применено', `${typeLabel[type] || type}: ${LABELS[type][value]}`);
+  const labelText = LABELS[type][mappedValue] || LABELS[type][value];
+  showNotification('✓', 'Параметр обновлён', `${typeLabel[type] || type}: ${labelText}`);
 }
-
-// ── SHAPE CONFIGS (case only — does NOT touch dial rx) ────────────────
-const SHAPE_CONFIGS = {
-  round: {
-    caseRx: 42, bezelRx: 36,
-    caseX: 55, caseW: 170, caseH: 195,
-    bezelX: 63, bezelW: 154, bezelH: 179,
-    dialX: 76, dialW: 128, dialH: 157,
-    dialRingX: 82, dialRingW: 116, dialRingH: 145,
-  },
-  cushion: {
-    caseRx: 28, bezelRx: 22,
-    caseX: 50, caseW: 180, caseH: 200,
-    bezelX: 58, bezelW: 164, bezelH: 184,
-    dialX: 70, dialW: 140, dialH: 162,
-    dialRingX: 76, dialRingW: 128, dialRingH: 150,
-  },
-  rectangular: {
-    caseRx: 8, bezelRx: 5,
-    caseX: 60, caseW: 160, caseH: 195,
-    bezelX: 68, bezelW: 144, bezelH: 179,
-    dialX: 80, dialW: 120, dialH: 157,
-    dialRingX: 86, dialRingW: 108, dialRingH: 145,
-  },
-};
-
-// ── DIAL FACE CONFIGS (independent from case shape) ────────────────────
-// rx is applied to dialBg and dialRing independently.
-// SVG clamps rx to half of w/h, so rx=999 always gives a true ellipse/circle.
-const DIAL_FACE_CONFIGS = {
-  classic: { rx: 28, ringRx: 24 },   // default rounded rect
-  round:   { rx: 999, ringRx: 999 }, // ellipse / pill — fully round
-  square:  { rx: 5,  ringRx: 4  },   // sharp corners — dress / Cartier
-};
 
 // ── UPDATE WATCH SVG ───────────────────────────
 function updateWatch() {
-  const c = CASE_COLORS[state.case];
   const d = DIAL_COLORS[state.dial];
   const s = STRAP_COLORS[state.strap];
-  const sh = SHAPE_CONFIGS[state.shape];
 
-  // ── Shape (geometry)
-  const caseBody  = document.getElementById('caseBody');
-  const caseBezel = document.getElementById('caseBezel');
-  const dialBg    = document.getElementById('dialBg');
-  const dialRing  = document.getElementById('dialRing');
+  // 1. Update Case Geometry & Shaders
+  updateCaseGeometry();
 
-  if (caseBody) {
-    caseBody.setAttribute('rx', sh.caseRx);
-    caseBody.setAttribute('x',  sh.caseX);
-    caseBody.setAttribute('width',  sh.caseW);
-    caseBody.setAttribute('height', sh.caseH);
-  }
-  if (caseBezel) {
-    caseBezel.setAttribute('rx', sh.bezelRx);
-    caseBezel.setAttribute('x',  sh.bezelX);
-    caseBezel.setAttribute('width',  sh.bezelW);
-    caseBezel.setAttribute('height', sh.bezelH);
-  }
-  // Dial geometry follows case shape (position/size only, NOT rx)
-  if (dialBg) {
-    dialBg.setAttribute('x',      sh.dialX);
-    dialBg.setAttribute('width',  sh.dialW);
-    dialBg.setAttribute('height', sh.dialH);
-  }
-  if (dialRing) {
-    dialRing.setAttribute('x',      sh.dialRingX);
-    dialRing.setAttribute('width',  sh.dialRingW);
-    dialRing.setAttribute('height', sh.dialRingH);
-  }
-
-  // ── Dial face shape (independent rx)
-  const df = DIAL_FACE_CONFIGS[state.dialFace];
-  if (dialBg)   dialBg.setAttribute('rx', df.rx);
-  if (dialRing) dialRing.setAttribute('rx', df.ringRx);
-
-  // ── Case colors
-  const crownEl   = document.getElementById('crownEl');
-  if (caseBody)  caseBody.setAttribute('fill', c.body);
-  if (caseBezel) caseBezel.setAttribute('fill', c.bezel);
-  if (crownEl)   crownEl.setAttribute('fill', c.crown);
-
-  // ── Dial
+  // 2. Update Dial Elements
+  const dialBg        = document.getElementById('dialBg');
+  const dialRing      = document.getElementById('dialRing');
   const dialInnerRing = document.getElementById('dialInnerRing');
   const dialBrand     = document.getElementById('dialBrand');
   const dialSub       = document.getElementById('dialSub');
@@ -270,30 +843,29 @@ function updateWatch() {
   const minuteHand    = document.getElementById('minuteHand');
   const secondHand    = document.getElementById('secondHand');
   const secondBalance = document.getElementById('secondBalance');
-  const centerCap     = document.querySelector('#watchSvg circle[r="5"]');
-  const centerDot     = document.querySelector('#watchSvg circle[r="2"]');
+  const centerCap     = document.querySelector('#dialLayer circle[r="5"]');
+  const centerDot     = document.querySelector('#dialLayer circle[r="2"]');
 
   if (dialBg)        dialBg.setAttribute('fill', d.bg);
-  if (dialRing)      { dialRing.setAttribute('stroke', d.ring); }
+  if (dialRing)      dialRing.setAttribute('stroke', d.ring);
   if (dialInnerRing) dialInnerRing.setAttribute('stroke', d.ring);
   if (dialBrand)     dialBrand.setAttribute('fill', d.brand);
   if (dialSub)       dialSub.setAttribute('fill', d.sub);
-  if (dateWindow)    {
+  if (dateWindow) {
     dateWindow.setAttribute('fill', d.dateWindow);
     dateWindow.setAttribute('stroke', d.dateBorder);
-    // date text
     const dateText = dateWindow.nextElementSibling;
     if (dateText) dateText.setAttribute('fill', d.dateText);
   }
   if (hourMarkers)   hourMarkers.setAttribute('stroke', d.markers);
   if (hourHand)      hourHand.setAttribute('stroke', d.hourHand);
   if (minuteHand)    minuteHand.setAttribute('stroke', d.minHand);
-  if (secondHand)    { secondHand.setAttribute('stroke', d.secHand); }
+  if (secondHand)    secondHand.setAttribute('stroke', d.secHand);
   if (secondBalance) secondBalance.setAttribute('stroke', d.secHand);
   if (centerCap)     centerCap.setAttribute('fill', d.center);
   if (centerDot)     centerDot.setAttribute('fill', d.centerDot);
 
-  // ── Strap
+  // 3. Update Strap Elements
   const strapTop    = document.getElementById('strapTop');
   const strapBottom = document.getElementById('strapBottom');
   const claspBg     = document.getElementById('claspBg');
@@ -304,7 +876,6 @@ function updateWatch() {
   if (claspBg)     claspBg.setAttribute('fill', s.clasp);
   if (claspPin)    claspPin.setAttribute('fill', s.pin);
 
-  // Steel strap: draw metal bracelet links instead of texture
   updateStrapTexture(s, state.strap === 'steel');
 }
 
@@ -313,11 +884,10 @@ function updateStrapTexture(s, isSteel) {
   const bottomTexture = document.getElementById('strapBottomTexture');
 
   if (isSteel) {
-    // Metallic link lines
     const strokeColor = '#D8D8D8';
     [topTexture, bottomTexture].forEach(el => {
       if (el) {
-        el.setAttribute('opacity', '0.6');
+        el.setAttribute('opacity', '0.65');
         el.querySelectorAll('line').forEach(l => {
           l.setAttribute('stroke', strokeColor);
           l.setAttribute('stroke-width', '2');
@@ -341,6 +911,7 @@ function updateStrapTexture(s, isSteel) {
 // ── ANIMATE WATCH ──────────────────────────────
 function animateWatch() {
   const svg = document.getElementById('watchSvg');
+  if (!svg) return;
   svg.classList.remove('animating');
   void svg.offsetWidth; // reflow
   svg.classList.add('animating');
@@ -349,29 +920,35 @@ function animateWatch() {
 
 // ── INFO CARD UPDATE ───────────────────────────
 function updateInfoCard() {
-  document.getElementById('infoCase').textContent  = LABELS.case[state.case];
-  document.getElementById('infoDial').textContent  = LABELS.dial[state.dial];
-  document.getElementById('infoStrap').textContent = LABELS.strap[state.strap];
-  const infoShape    = document.getElementById('infoShape');
+  const infoCase = document.getElementById('infoCase');
+  const infoDial = document.getElementById('infoDial');
+  const infoStrap = document.getElementById('infoStrap');
+  const infoShape = document.getElementById('infoShape');
   const infoDialFace = document.getElementById('infoDialFace');
+
+  if (infoCase)     infoCase.textContent     = LABELS.case[state.case];
+  if (infoDial)     infoDial.textContent     = LABELS.dial[state.dial];
+  if (infoStrap)    infoStrap.textContent    = LABELS.strap[state.strap];
   if (infoShape)    infoShape.textContent    = LABELS.shape[state.shape];
   if (infoDialFace) infoDialFace.textContent = LABELS.dialFace[state.dialFace];
 
-  const total    = calcTotal();
-  const priceEl  = document.getElementById('totalPrice');
-  priceEl.textContent = formatPrice(total);
-  priceEl.classList.remove('bump');
-  void priceEl.offsetWidth;
-  priceEl.classList.add('bump');
+  const total = calcTotal();
+  const priceEl = document.getElementById('totalPrice');
+  if (priceEl) {
+    priceEl.textContent = formatPrice(total);
+    priceEl.classList.remove('bump');
+    void priceEl.offsetWidth;
+    priceEl.classList.add('bump');
+  }
 }
 
 function calcTotal() {
   return BASE_PRICE
-    + PRICES.case[state.case]
-    + PRICES.dial[state.dial]
-    + PRICES.strap[state.strap]
-    + PRICES.shape[state.shape]
-    + PRICES.dialFace[state.dialFace];
+    + (PRICES.case[state.case] || 0)
+    + (PRICES.dial[state.dial] || 0)
+    + (PRICES.strap[state.strap] || 0)
+    + (PRICES.shape[state.shape] || 0)
+    + (PRICES.dialFace[state.dialFace] || 0);
 }
 
 function formatPrice(n) {
@@ -382,14 +959,19 @@ function formatPrice(n) {
 function saveDesign() {
   const total = calcTotal();
 
-  document.getElementById('modalCase').textContent  = LABELS.case[state.case];
-  document.getElementById('modalDial').textContent  = LABELS.dial[state.dial];
-  document.getElementById('modalStrap').textContent = LABELS.strap[state.strap];
-  const modalShape    = document.getElementById('modalShape');
-  const modalDialFace = document.getElementById('modalDialFace');
-  if (modalShape)    modalShape.textContent    = LABELS.shape[state.shape];
-  if (modalDialFace) modalDialFace.textContent = LABELS.dialFace[state.dialFace];
-  document.getElementById('modalTotal').textContent = formatPrice(total);
+  const mCase = document.getElementById('modalCase');
+  const mDial = document.getElementById('modalDial');
+  const mStrap = document.getElementById('modalStrap');
+  const mShape = document.getElementById('modalShape');
+  const mDialFace = document.getElementById('modalDialFace');
+  const mTotal = document.getElementById('modalTotal');
+
+  if (mCase)     mCase.textContent     = LABELS.case[state.case];
+  if (mDial)     mDial.textContent     = LABELS.dial[state.dial];
+  if (mStrap)    mStrap.textContent    = LABELS.strap[state.strap];
+  if (mShape)    mShape.textContent    = LABELS.shape[state.shape];
+  if (mDialFace) mDialFace.textContent = LABELS.dialFace[state.dialFace];
+  if (mTotal)    mTotal.textContent    = formatPrice(total);
 
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -405,11 +987,18 @@ function resetDesign() {
   state.case     = 'silver';
   state.dial     = 'ivory';
   state.strap    = 'brown';
-  state.shape    = 'round';
+  state.shape    = 'rolex-datejust';
   state.dialFace = 'classic';
 
+  const defaults = {
+    case: 'silver',
+    dial: 'ivory',
+    strap: 'brown',
+    shape: 'rolex-datejust',
+    dialFace: 'classic',
+  };
+
   ['case', 'dial', 'strap', 'shape', 'dialFace'].forEach(type => {
-    const defaults = { case: 'silver', dial: 'ivory', strap: 'brown', shape: 'round', dialFace: 'classic' };
     document.querySelectorAll(`[id^="${type}-"]`).forEach(btn => {
       btn.classList.toggle('active', btn.id === `${type}-${defaults[type]}`);
     });
@@ -421,17 +1010,19 @@ function resetDesign() {
   animateWatch();
   updateWatch();
 
-  showNotification('↺', 'Настройки сброшены', 'Конструктор вернулся к базовым параметрам');
+  showNotification('↺', 'Настройки сброшены', 'Установлена базовая комплектация: Rolex Datejust');
 }
 
 // ── NOTIFICATION ───────────────────────────────
 let notifTimer = null;
 
 function showNotification(icon, title, body) {
-  const el    = document.getElementById('notification');
-  const iEl   = document.getElementById('notifIcon');
-  const tEl   = document.getElementById('notifTitle');
-  const bEl   = document.getElementById('notifBody');
+  const el  = document.getElementById('notification');
+  const iEl = document.getElementById('notifIcon');
+  const tEl = document.getElementById('notifTitle');
+  const bEl = document.getElementById('notifBody');
+
+  if (!el || !iEl || !tEl || !bEl) return;
 
   iEl.textContent = icon;
   tEl.textContent = title;
@@ -443,10 +1034,11 @@ function showNotification(icon, title, body) {
 }
 
 function closeNotification() {
-  document.getElementById('notification').classList.remove('show');
+  const el = document.getElementById('notification');
+  if (el) el.classList.remove('show');
 }
 
-// ── LIVE CLOCK (second hand) ───────────────────
+// ── LIVE CLOCK (Second, Minute, Hour Hands) ────
 function startClock() {
   function tick() {
     const now = new Date();
@@ -454,7 +1046,6 @@ function startClock() {
     const m = now.getMinutes() + s / 60;
     const h = (now.getHours() % 12) + m / 60;
 
-    const cx = 140, cy = 191;
     const R_SEC = 48, R_MIN = 42, R_HR = 34;
 
     function handCoords(angleDeg, r) {
@@ -472,21 +1063,21 @@ function startClock() {
     const hrHand     = document.getElementById('hourHand');
 
     if (secHand) {
-      secHand.setAttribute('x2', sPos.x);
-      secHand.setAttribute('y2', sPos.y);
+      secHand.setAttribute('x2', sPos.x.toFixed(2));
+      secHand.setAttribute('y2', sPos.y.toFixed(2));
     }
     if (secBalance) {
       const sBal = handCoords(s * 6 + 180, 12);
-      secBalance.setAttribute('x2', sBal.x);
-      secBalance.setAttribute('y2', sBal.y);
+      secBalance.setAttribute('x2', sBal.x.toFixed(2));
+      secBalance.setAttribute('y2', sBal.y.toFixed(2));
     }
     if (minHand) {
-      minHand.setAttribute('x2', mPos.x);
-      minHand.setAttribute('y2', mPos.y);
+      minHand.setAttribute('x2', mPos.x.toFixed(2));
+      minHand.setAttribute('y2', mPos.y.toFixed(2));
     }
     if (hrHand) {
-      hrHand.setAttribute('x2', hPos.x);
-      hrHand.setAttribute('y2', hPos.y);
+      hrHand.setAttribute('x2', hPos.x.toFixed(2));
+      hrHand.setAttribute('y2', hPos.y.toFixed(2));
     }
 
     const dateWindowText = document.querySelector('#dateWindow + text');

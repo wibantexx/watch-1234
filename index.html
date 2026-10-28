@@ -58,55 +58,108 @@
         <div class="floating-card">
           <!-- Hero watch SVG -->
           <svg id="heroWatchSvg" viewBox="0 0 260 340" xmlns="http://www.w3.org/2000/svg" class="hero-svg">
+            <defs>
+              <linearGradient id="heroMetalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="25%" stop-color="#D0D5DC"/>
+                <stop offset="45%" stop-color="#9AA3AF"/>
+                <stop offset="65%" stop-color="#F5F7FA"/>
+                <stop offset="85%" stop-color="#848F9E"/>
+                <stop offset="100%" stop-color="#BDC5CD"/>
+              </linearGradient>
+              <linearGradient id="heroBevelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="40%" stop-color="#E2E7EC"/>
+                <stop offset="100%" stop-color="#8A95A2"/>
+              </linearGradient>
+            </defs>
+
             <!-- Strap top -->
             <rect x="95" y="20" width="70" height="75" rx="10" fill="#6B4226"/>
             <!-- Strap buckle holes -->
-            <rect x="115" y="28" width="6" height="3" rx="1.5" fill="#8B5A2B" opacity="0.5"/>
-            <rect x="115" y="35" width="6" height="3" rx="1.5" fill="#8B5A2B" opacity="0.5"/>
-            <rect x="115" y="42" width="6" height="3" rx="1.5" fill="#8B5A2B" opacity="0.5"/>
-            <!-- Case -->
-            <rect x="55" y="82" width="150" height="176" rx="36" fill="#C0C0C0"/>
-            <rect x="60" y="87" width="140" height="166" rx="32" fill="#A8A8A8"/>
-            <!-- Crown -->
-            <rect x="201" y="148" width="14" height="22" rx="4" fill="#B0B0B0"/>
-            <!-- Dial -->
-            <rect x="72" y="99" width="116" height="142" rx="26" fill="#FFFFF0"/>
-            <!-- Dial ring -->
-            <circle cx="130" cy="170" r="52" fill="none" stroke="#D4C5A0" stroke-width="1.5" opacity="0.6"/>
-            <!-- Hour markers -->
-            <g stroke="#8B7355" stroke-width="2" stroke-linecap="round">
-              <line x1="130" y1="120" x2="130" y2="130"/>
-              <line x1="150" y1="122" x2="146" y2="131"/>
-              <line x1="166" y1="130" x2="160" y2="136"/>
-              <line x1="175" y1="148" x2="166" y2="151"/>
-              <line x1="175" y1="170" x2="166" y2="170"/>
-              <line x1="175" y1="192" x2="166" y2="189"/>
-              <line x1="166" y1="210" x2="160" y2="204"/>
-              <line x1="150" y1="218" x2="146" y2="209"/>
-              <line x1="130" y1="220" x2="130" y2="210"/>
-              <line x1="110" y1="218" x2="114" y2="209"/>
-              <line x1="94" y1="210" x2="100" y2="204"/>
-              <line x1="85" y1="192" x2="94" y2="189"/>
-              <line x1="85" y1="170" x2="94" y2="170"/>
-              <line x1="85" y1="148" x2="94" y2="151"/>
-              <line x1="94" y1="130" x2="100" y2="136"/>
-              <line x1="110" y1="122" x2="114" y2="131"/>
-            </g>
-            <!-- Logo on dial -->
-            <text x="130" y="155" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" fill="#8B7355" font-weight="500">12:34</text>
-            <!-- Hour hand -->
-            <line x1="130" y1="170" x2="130" y2="135" stroke="#4A3728" stroke-width="3.5" stroke-linecap="round"/>
-            <!-- Minute hand -->
-            <line x1="130" y1="170" x2="158" y2="155" stroke="#4A3728" stroke-width="2.5" stroke-linecap="round"/>
-            <!-- Second hand -->
-            <line x1="130" y1="170" x2="110" y2="198" stroke="#8B6914" stroke-width="1.5" stroke-linecap="round"/>
-            <!-- Center dot -->
-            <circle cx="130" cy="170" r="4" fill="#4A3728"/>
+            <rect x="127" y="32" width="6" height="3" rx="1.5" fill="#000" opacity="0.25"/>
+            <rect x="127" y="44" width="6" height="3" rx="1.5" fill="#000" opacity="0.25"/>
+            <rect x="127" y="56" width="6" height="3" rx="1.5" fill="#000" opacity="0.25"/>
+            <rect x="127" y="68" width="6" height="3" rx="1.5" fill="#000" opacity="0.25"/>
+
             <!-- Strap bottom -->
             <rect x="95" y="245" width="70" height="75" rx="10" fill="#6B4226"/>
             <!-- Clasp -->
-            <rect x="108" y="274" width="44" height="12" rx="4" fill="#8B5A2B"/>
-            <rect x="126" y="272" width="8" height="16" rx="2" fill="#7A4A1A" opacity="0.6"/>
+            <rect x="106" y="274" width="48" height="14" rx="4" fill="#8B5A2B"/>
+            <rect x="126" y="271" width="8" height="20" rx="2" fill="#7A4A1A"/>
+            <rect x="108" y="276" width="44" height="3" rx="1.5" fill="white" opacity="0.2"/>
+
+            <!-- Case Shadow -->
+            <path d="M 88 84 C 60 126 60 214 88 256 L 172 256 C 200 214 200 126 172 84 Z" fill="#000" opacity="0.22" filter="blur(6px)" transform="translate(0, 4)"/>
+
+            <!-- Monobloc Oyster Case Body -->
+            <path d="M 88 84 C 58 126 58 214 88 256 L 98 256 C 96 244 102 236 110 233 L 150 233 C 158 236 164 244 162 256 L 172 256 C 202 214 202 126 172 84 L 162 84 C 164 96 158 104 150 107 L 110 107 C 102 104 96 96 98 84 Z" fill="url(#heroMetalGrad)" stroke="url(#heroBevelGrad)" stroke-width="1.3"/>
+
+            <!-- Oyster Lug Polished Facets -->
+            <path d="M 88 84 C 76 108 68 130 64 152 L 61 146 C 66 124 75 102 88 84 Z" fill="url(#heroBevelGrad)"/>
+            <path d="M 172 84 C 184 108 192 130 196 152 L 199 146 C 194 124 185 102 172 84 Z" fill="url(#heroBevelGrad)"/>
+            <path d="M 88 256 C 76 232 68 210 64 188 L 61 194 C 66 216 75 238 88 256 Z" fill="url(#heroBevelGrad)"/>
+            <path d="M 172 256 C 184 232 192 210 196 188 L 199 194 C 194 216 185 238 172 256 Z" fill="url(#heroBevelGrad)"/>
+
+            <!-- Twinlock Crown at 3 o'clock -->
+            <g transform="translate(200, 160)">
+              <rect x="0" y="2" width="13" height="16" rx="3" fill="#B4BDC7" stroke="#000" stroke-opacity="0.25" stroke-width="0.8"/>
+              <line x1="3" y1="4" x2="3" y2="16" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
+              <line x1="6" y1="4" x2="6" y2="16" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
+              <line x1="9" y1="4" x2="9" y2="16" stroke="#fff" stroke-width="0.8" opacity="0.6"/>
+            </g>
+
+            <!-- Fluted Bezel Ring -->
+            <circle cx="130" cy="170" r="62" fill="none" stroke="url(#heroBevelGrad)" stroke-width="2.5"/>
+            <circle cx="130" cy="170" r="59" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.85"/>
+            <circle cx="130" cy="170" r="50.5" fill="none" stroke="url(#heroBevelGrad)" stroke-width="1.5"/>
+
+            <!-- Dial -->
+            <circle cx="130" cy="170" r="50" fill="#FFFFF0"/>
+            <circle cx="130" cy="170" r="46" fill="none" stroke="#D4C5A0" stroke-width="1" opacity="0.6"/>
+
+            <!-- Hour markers -->
+            <g stroke="#8B7355" stroke-width="2" stroke-linecap="round">
+              <line x1="130" y1="124" x2="130" y2="134"/>
+              <line x1="150" y1="126" x2="146" y2="135"/>
+              <line x1="166" y1="134" x2="160" y2="140"/>
+              <line x1="174" y1="151" x2="165" y2="153"/>
+              <line x1="174" y1="170" x2="165" y2="170"/>
+              <line x1="174" y1="189" x2="165" y2="187"/>
+              <line x1="166" y1="206" x2="160" y2="200"/>
+              <line x1="150" y1="214" x2="146" y2="205"/>
+              <line x1="130" y1="216" x2="130" y2="206"/>
+              <line x1="110" y1="214" x2="114" y2="205"/>
+              <line x1="94" y1="206" x2="100" y2="200"/>
+              <line x1="86" y1="189" x2="95" y2="187"/>
+              <line x1="86" y1="170" x2="95" y2="170"/>
+              <line x1="86" y1="151" x2="95" y2="153"/>
+              <line x1="94" y1="134" x2="100" y2="140"/>
+              <line x1="110" y1="126" x2="114" y2="135"/>
+            </g>
+
+            <!-- Brand Logo -->
+            <text x="130" y="152" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="12" fill="#8B7355" font-weight="500" letter-spacing="1.5">12:34</text>
+            <text x="130" y="161" text-anchor="middle" font-family="Inter, sans-serif" font-size="5.5" fill="#B0A080" font-weight="300" letter-spacing="1">HANDCRAFTED</text>
+
+            <!-- Date Window & Cyclops Lens -->
+            <rect x="146" y="163" width="18" height="14" rx="2" fill="white" stroke="#C5B090" stroke-width="0.8"/>
+            <text x="155" y="174" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#4A3728" font-weight="600">27</text>
+            <rect x="142" y="160" width="26" height="20" rx="6" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.7)" stroke-width="1"/>
+            <ellipse cx="155" cy="164" rx="7" ry="2.5" fill="rgba(255,255,255,0.4)"/>
+
+            <!-- Hour hand -->
+            <line x1="130" y1="170" x2="130" y2="137" stroke="#3A2920" stroke-width="4" stroke-linecap="round"/>
+            <!-- Minute hand -->
+            <line x1="130" y1="170" x2="157" y2="156" stroke="#3A2920" stroke-width="2.8" stroke-linecap="round"/>
+            <!-- Second hand -->
+            <line x1="130" y1="170" x2="112" y2="195" stroke="#C8961A" stroke-width="1.6" stroke-linecap="round"/>
+            <!-- Center cap -->
+            <circle cx="130" cy="170" r="4.5" fill="#3A2920"/>
+            <circle cx="130" cy="170" r="1.8" fill="#C8961A"/>
+
+            <!-- Sapphire Anti-Reflective Glare -->
+            <path d="M 92 128 Q 130 110 168 122" stroke="rgba(255,255,255,0.35)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
           </svg>
         </div>
         <div class="hero-badge">
@@ -137,6 +190,10 @@
           <div class="watch-container">
             <!-- Main SVG Watch -->
             <svg id="watchSvg" viewBox="0 0 280 380" xmlns="http://www.w3.org/2000/svg" class="watch-svg">
+              <defs id="watchDefs">
+                <!-- Case shaders, gradients & filters dynamically updated by JS -->
+              </defs>
+
               <!-- Strap top -->
               <rect id="strapTop" x="100" y="18" width="80" height="88" rx="14" fill="#6B4226"/>
               <!-- Strap texture lines top -->
@@ -156,76 +213,6 @@
               <rect x="128" y="74" width="8" height="4" rx="2" fill="#000" opacity="0.25"/>
               <rect x="128" y="87" width="8" height="4" rx="2" fill="#000" opacity="0.25"/>
 
-              <!-- Case outer shadow -->
-              <rect x="55" y="93" width="170" height="195" rx="42" fill="#9A9A9A" opacity="0.3" transform="translate(3,4)"/>
-              <!-- Case body -->
-              <rect id="caseBody" x="55" y="93" width="170" height="195" rx="42" fill="#C0C0C0"/>
-              <!-- Case bezel gradient overlay -->
-              <rect id="caseBezel" x="63" y="101" width="154" height="179" rx="36" fill="#B0B0B0"/>
-              <!-- Case shine -->
-              <ellipse cx="100" cy="120" rx="28" ry="14" fill="white" opacity="0.15" transform="rotate(-30, 100, 120)"/>
-
-              <!-- Crown -->
-              <rect id="crownEl" x="220" y="165" width="17" height="28" rx="5" fill="#B0B0B0"/>
-              <line x1="222" y1="172" x2="235" y2="172" stroke="white" stroke-width="0.8" opacity="0.4"/>
-              <line x1="222" y1="179" x2="235" y2="179" stroke="white" stroke-width="0.8" opacity="0.4"/>
-              <line x1="222" y1="186" x2="235" y2="186" stroke="white" stroke-width="0.8" opacity="0.4"/>
-
-              <!-- Dial background -->
-              <rect id="dialBg" x="76" y="112" width="128" height="157" rx="28" fill="#FFFFF0"/>
-              <!-- Dial ring decoration -->
-              <rect id="dialRing" x="82" y="118" width="116" height="145" rx="24" fill="none" stroke="#D4C5A0" stroke-width="1.5" opacity="0.7"/>
-              <!-- Dial inner ring -->
-              <circle id="dialInnerRing" cx="140" cy="191" r="56" fill="none" stroke="#D4C5A0" stroke-width="0.8" opacity="0.5"/>
-
-              <!-- Hour markers (12 positions) -->
-              <g id="hourMarkers" stroke="#8B7355" stroke-linecap="round">
-                <!-- 12 -->
-                <line x1="140" y1="136" x2="140" y2="148" stroke-width="2.5"/>
-                <!-- 1 -->
-                <line x1="161" y1="140" x2="155" y2="151" stroke-width="1.5"/>
-                <!-- 2 -->
-                <line x1="177" y1="156" x2="167" y2="162" stroke-width="1.5"/>
-                <!-- 3 -->
-                <line x1="183" y1="177" x2="170" y2="177" stroke-width="2.5"/>
-                <!-- 4 -->
-                <line x1="177" y1="198" x2="167" y2="192" stroke-width="1.5"/>
-                <!-- 5 -->
-                <line x1="161" y1="214" x2="155" y2="203" stroke-width="1.5"/>
-                <!-- 6 -->
-                <line x1="140" y1="220" x2="140" y2="232" stroke-width="2.5" transform="translate(0,-9)"/>
-                <!-- 7 -->
-                <line x1="119" y1="214" x2="125" y2="203" stroke-width="1.5"/>
-                <!-- 8 -->
-                <line x1="103" y1="198" x2="113" y2="192" stroke-width="1.5"/>
-                <!-- 9 -->
-                <line x1="97" y1="177" x2="110" y2="177" stroke-width="2.5"/>
-                <!-- 10 -->
-                <line x1="103" y1="156" x2="113" y2="162" stroke-width="1.5"/>
-                <!-- 11 -->
-                <line x1="119" y1="140" x2="125" y2="151" stroke-width="1.5"/>
-              </g>
-
-              <!-- Brand name on dial -->
-              <text id="dialBrand" x="140" y="168" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" fill="#8B7355" font-weight="500" letter-spacing="2">12:34</text>
-              <text id="dialSub" x="140" y="180" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" fill="#B0A080" font-weight="300" letter-spacing="1.5">HANDCRAFTED</text>
-
-              <!-- Date window -->
-              <rect id="dateWindow" x="158" y="186" width="20" height="14" rx="2" fill="white" stroke="#C5B090" stroke-width="1"/>
-              <text x="168" y="197" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#4A3728" font-weight="500">27</text>
-
-              <!-- Hour hand -->
-              <line id="hourHand" x1="140" y1="191" x2="140" y2="152" stroke="#3A2920" stroke-width="4.5" stroke-linecap="round"/>
-              <!-- Minute hand -->
-              <line id="minuteHand" x1="140" y1="191" x2="172" y2="175" stroke="#3A2920" stroke-width="3" stroke-linecap="round"/>
-              <!-- Second hand -->
-              <line id="secondHand" x1="140" y1="191" x2="118" y2="219" stroke="#C8961A" stroke-width="1.8" stroke-linecap="round"/>
-              <!-- Second hand counterbalance -->
-              <line id="secondBalance" x1="140" y1="191" x2="148" y2="183" stroke="#C8961A" stroke-width="1.8" stroke-linecap="round"/>
-              <!-- Center cap -->
-              <circle cx="140" cy="191" r="5" fill="#3A2920"/>
-              <circle cx="140" cy="191" r="2" fill="#C8961A"/>
-
               <!-- Strap bottom -->
               <rect id="strapBottom" x="100" y="275" width="80" height="88" rx="14" fill="#6B4226"/>
               <!-- Strap texture lines bottom -->
@@ -242,14 +229,92 @@
               <rect id="claspBg" x="112" y="305" width="56" height="18" rx="5" fill="#8B5A2B"/>
               <rect id="claspPin" x="136" y="302" width="8" height="24" rx="3" fill="#7A4A1A"/>
               <rect id="claspShine" x="114" y="307" width="52" height="4" rx="2" fill="white" opacity="0.15"/>
+
+              <!-- Realistic Luxury Case Layer (monobloc case, sculpted lugs, bezels, screws & crowns) -->
+              <g id="caseLayer">
+                <!-- Case body fallback / anchor -->
+                <path id="caseBody" d="M 92 95 C 60 142 60 240 92 287 L 188 287 C 220 240 220 142 188 95 Z" fill="#C0C0C0"/>
+                <circle id="caseBezel" cx="140" cy="191" r="70.5" fill="#B0B0B0"/>
+                <rect id="crownEl" x="219" y="180" width="13" height="18" rx="3.5" fill="#B0B0B0"/>
+              </g>
+
+              <!-- Dial Layer -->
+              <g id="dialLayer">
+                <!-- Dial background -->
+                <rect id="dialBg" x="83" y="134" width="114" height="114" rx="999" fill="#FFFFF0"/>
+                <!-- Dial ring decoration -->
+                <rect id="dialRing" x="87" y="138" width="106" height="106" rx="999" fill="none" stroke="#D4C5A0" stroke-width="1.2" opacity="0.7"/>
+                <!-- Dial inner ring -->
+                <circle id="dialInnerRing" cx="140" cy="191" r="54" fill="none" stroke="#D4C5A0" stroke-width="0.8" opacity="0.5"/>
+
+                <!-- Hour markers (12 positions) -->
+                <g id="hourMarkers" stroke="#8B7355" stroke-linecap="round">
+                  <!-- 12 -->
+                  <line x1="140" y1="139" x2="140" y2="149" stroke-width="2.5"/>
+                  <!-- 1 -->
+                  <line x1="161" y1="143" x2="155" y2="152" stroke-width="1.5"/>
+                  <!-- 2 -->
+                  <line x1="175" y1="157" x2="166" y2="163" stroke-width="1.5"/>
+                  <!-- 3 -->
+                  <line x1="181" y1="177" x2="170" y2="177" stroke-width="2.5"/>
+                  <!-- 4 -->
+                  <line x1="175" y1="197" x2="166" y2="191" stroke-width="1.5"/>
+                  <!-- 5 -->
+                  <line x1="161" y1="211" x2="155" y2="202" stroke-width="1.5"/>
+                  <!-- 6 -->
+                  <line x1="140" y1="215" x2="140" y2="225" stroke-width="2.5"/>
+                  <!-- 7 -->
+                  <line x1="119" y1="211" x2="125" y2="202" stroke-width="1.5"/>
+                  <!-- 8 -->
+                  <line x1="105" y1="197" x2="114" y2="191" stroke-width="1.5"/>
+                  <!-- 9 -->
+                  <line x1="99" y1="177" x2="110" y2="177" stroke-width="2.5"/>
+                  <!-- 10 -->
+                  <line x1="105" y1="157" x2="114" y2="163" stroke-width="1.5"/>
+                  <!-- 11 -->
+                  <line x1="119" y1="143" x2="125" y2="152" stroke-width="1.5"/>
+                </g>
+
+                <!-- Brand name on dial -->
+                <text id="dialBrand" x="140" y="168" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" fill="#8B7355" font-weight="500" letter-spacing="2">12:34</text>
+                <text id="dialSub" x="140" y="180" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" fill="#B0A080" font-weight="300" letter-spacing="1.5">HANDCRAFTED</text>
+
+                <!-- Date window -->
+                <rect id="dateWindow" x="158" y="184" width="20" height="14" rx="2" fill="white" stroke="#C5B090" stroke-width="1"/>
+                <text x="168" y="195" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#4A3728" font-weight="500">27</text>
+
+                <!-- Hour hand -->
+                <line id="hourHand" x1="140" y1="191" x2="140" y2="152" stroke="#3A2920" stroke-width="4.5" stroke-linecap="round"/>
+                <!-- Minute hand -->
+                <line id="minuteHand" x1="140" y1="191" x2="172" y2="175" stroke="#3A2920" stroke-width="3" stroke-linecap="round"/>
+                <!-- Second hand -->
+                <line id="secondHand" x1="140" y1="191" x2="118" y2="219" stroke="#C8961A" stroke-width="1.8" stroke-linecap="round"/>
+                <!-- Second hand counterbalance -->
+                <line id="secondBalance" x1="140" y1="191" x2="148" y2="183" stroke="#C8961A" stroke-width="1.8" stroke-linecap="round"/>
+                <!-- Center cap -->
+                <circle cx="140" cy="191" r="5" fill="#3A2920"/>
+                <circle cx="140" cy="191" r="2" fill="#C8961A"/>
+              </g>
+
+              <!-- Crystal & Reflections Layer (Anti-reflective Sapphire & Cyclops Lens) -->
+              <g id="crystalLayer" pointer-events="none">
+                <!-- Rolex Cyclops Date Magnifier -->
+                <g id="cyclopsLens" style="display: block;">
+                  <rect x="153" y="180" width="29" height="22" rx="7" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.7)" stroke-width="1.2"/>
+                  <ellipse cx="167" cy="185" rx="8" ry="3" fill="rgba(255,255,255,0.5)"/>
+                </g>
+                <!-- Sapphire Crystal Anti-Reflective Glare Arc -->
+                <path d="M 96 142 Q 140 120 184 135" stroke="rgba(255,255,255,0.32)" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+                <path d="M 106 148 Q 140 128 174 140" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.35"/>
+              </g>
             </svg>
           </div>
         </div>
         <!-- Model info card -->
         <div class="model-info-card" id="modelInfoCard">
           <div class="model-info-row">
-            <span class="model-label">Корпус</span>
-            <span class="model-value" id="infoCase">Серебряный</span>
+            <span class="model-label">Материал</span>
+            <span class="model-value" id="infoCase">Сталь 904L / Серебро</span>
           </div>
           <div class="model-info-row">
             <span class="model-label">Циферблат</span>
@@ -257,11 +322,11 @@
           </div>
           <div class="model-info-row">
             <span class="model-label">Ремешок</span>
-            <span class="model-value" id="infoStrap">Коричневый</span>
+            <span class="model-value" id="infoStrap">Коричневая кожа</span>
           </div>
           <div class="model-info-row">
-            <span class="model-label">Форма</span>
-            <span class="model-value" id="infoShape">Круглый</span>
+            <span class="model-label">Модель корпуса</span>
+            <span class="model-value" id="infoShape">Rolex Datejust (Рифлёный)</span>
           </div>
           <div class="model-info-row">
             <span class="model-label">Циферблат</span>
@@ -277,34 +342,42 @@
 
       <!-- Options Panel -->
       <div class="options-panel">
-        <!-- CASE OPTIONS -->
+        <!-- CASE MATERIAL OPTIONS -->
         <div class="option-group" id="caseGroup">
           <div class="option-group-header">
-            <h3 class="option-group-title">Корпус</h3>
-            <span class="option-group-badge" id="caseBadge">Серебряный</span>
+            <h3 class="option-group-title">Материал корпуса</h3>
+            <span class="option-group-badge" id="caseBadge">Сталь 904L / Серебро</span>
           </div>
           <div class="option-grid">
-            <button class="option-btn active" id="case-silver" onclick="selectOption('case','silver')" aria-label="Серебряный корпус">
-              <div class="option-swatch" style="background: linear-gradient(135deg,#E8E8E8,#B0B0B0)"></div>
+            <button class="option-btn active" id="case-silver" onclick="selectOption('case','silver')" aria-label="Сталь 904L / Серебро">
+              <div class="option-swatch" style="background: linear-gradient(135deg,#FFFFFF,#9EA7B2)"></div>
               <div class="option-info">
-                <span class="option-name">Серебряный</span>
+                <span class="option-name">Сталь 904L / Серебро</span>
                 <span class="option-price">Базовый</span>
               </div>
               <div class="option-check">✓</div>
             </button>
-            <button class="option-btn" id="case-black" onclick="selectOption('case','black')" aria-label="Чёрный корпус">
-              <div class="option-swatch" style="background: linear-gradient(135deg,#4A4A4A,#1A1A1A)"></div>
+            <button class="option-btn" id="case-gold" onclick="selectOption('case','gold')" aria-label="Жёлтое золото 18k">
+              <div class="option-swatch" style="background: linear-gradient(135deg,#FFF3C2,#C8961A)"></div>
               <div class="option-info">
-                <span class="option-name">Чёрный</span>
-                <span class="option-price">+3 000 ₸</span>
+                <span class="option-name">Жёлтое золото 18k</span>
+                <span class="option-price">+5 000 ₸</span>
               </div>
               <div class="option-check">✓</div>
             </button>
-            <button class="option-btn" id="case-gold" onclick="selectOption('case','gold')" aria-label="Золотой корпус">
-              <div class="option-swatch" style="background: linear-gradient(135deg,#F5D060,#C8961A)"></div>
+            <button class="option-btn" id="case-rosegold" onclick="selectOption('case','rosegold')" aria-label="Розовое золото Everose">
+              <div class="option-swatch" style="background: linear-gradient(135deg,#FFE7DF,#C76A52)"></div>
               <div class="option-info">
-                <span class="option-name">Золотой</span>
-                <span class="option-price">+5 000 ₸</span>
+                <span class="option-name">Розовое золото Everose</span>
+                <span class="option-price">+6 000 ₸</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <button class="option-btn" id="case-black" onclick="selectOption('case','black')" aria-label="Чёрный DLC / Керамика">
+              <div class="option-swatch" style="background: linear-gradient(135deg,#5E646D,#181A1D)"></div>
+              <div class="option-info">
+                <span class="option-name">Чёрный DLC / Керамика</span>
+                <span class="option-price">+3 000 ₸</span>
               </div>
               <div class="option-check">✓</div>
             </button>
@@ -380,34 +453,70 @@
         </div>
 
 
-        <!-- SHAPE OPTIONS -->
+        <!-- CASE MODEL / BEZEL OPTIONS -->
         <div class="option-group" id="shapeGroup">
           <div class="option-group-header">
-            <h3 class="option-group-title">Форма корпуса</h3>
-            <span class="option-group-badge" id="shapeBadge">Круглый</span>
+            <h3 class="option-group-title">Модель корпуса и безель</h3>
+            <span class="option-group-badge" id="shapeBadge">Rolex Datejust (Рифлёный)</span>
           </div>
           <div class="option-grid">
-            <button class="option-btn active" id="shape-round" onclick="selectOption('shape','round')" aria-label="Круглый корпус">
-              <div class="option-swatch shape-swatch-round"></div>
+            <!-- 1. Rolex Datejust -->
+            <button class="option-btn active" id="shape-rolex-datejust" onclick="selectOption('shape','rolex-datejust')" aria-label="Rolex Datejust с рифлёным безелем">
+              <div class="option-swatch shape-swatch-datejust"></div>
               <div class="option-info">
-                <span class="option-name">Круглый</span>
+                <span class="option-name">Rolex Datejust <span class="brand-tag">Rolex</span></span>
+                <span class="option-sub">Круглый корпус, 3D рифлёный безель, ушки Oyster, лупа даты</span>
                 <span class="option-price">Базовый</span>
               </div>
               <div class="option-check">✓</div>
             </button>
-            <button class="option-btn" id="shape-cushion" onclick="selectOption('shape','cushion')" aria-label="Корпус-подушка">
-              <div class="option-swatch shape-swatch-cushion"></div>
+            <!-- 2. Rolex Submariner -->
+            <button class="option-btn" id="shape-rolex-submariner" onclick="selectOption('shape','rolex-submariner')" aria-label="Rolex Submariner с дайверским безелем">
+              <div class="option-swatch shape-swatch-submariner"></div>
               <div class="option-info">
-                <span class="option-name">Подушка</span>
+                <span class="option-name">Rolex Submariner <span class="brand-tag">Rolex</span></span>
+                <span class="option-sub">Круглый, керамический безель 60 мин, наплывы crown guards</span>
+                <span class="option-price">+3 000 ₸</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <!-- 3. Patek Philippe Nautilus -->
+            <button class="option-btn" id="shape-patek-nautilus" onclick="selectOption('shape','patek-nautilus')" aria-label="Patek Philippe Nautilus">
+              <div class="option-swatch shape-swatch-nautilus"></div>
+              <div class="option-info">
+                <span class="option-name">Patek Nautilus <span class="brand-tag">Patek Philippe</span></span>
+                <span class="option-sub">Октагон-иллюминатор, боковые «ушки»-шарниры, сатинирование</span>
+                <span class="option-price">+5 000 ₸</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <!-- 4. Audemars Piguet Royal Oak -->
+            <button class="option-btn" id="shape-ap-royaloak" onclick="selectOption('shape','ap-royaloak')" aria-label="Audemars Piguet Royal Oak">
+              <div class="option-swatch shape-swatch-royaloak"></div>
+              <div class="option-info">
+                <span class="option-name">AP Royal Oak <span class="brand-tag">Audemars Piguet</span></span>
+                <span class="option-sub">Чёткий октагон, 8 золотых винтов, полированные фаски</span>
+                <span class="option-price">+6 000 ₸</span>
+              </div>
+              <div class="option-check">✓</div>
+            </button>
+            <!-- 5. Patek Philippe Calatrava -->
+            <button class="option-btn" id="shape-patek-calatrava" onclick="selectOption('shape','patek-calatrava')" aria-label="Patek Philippe Calatrava">
+              <div class="option-swatch shape-swatch-calatrava"></div>
+              <div class="option-info">
+                <span class="option-name">Patek Calatrava <span class="brand-tag">Patek Philippe</span></span>
+                <span class="option-sub">Ультратонкая круглая классика, ступенчатый безель</span>
                 <span class="option-price">+2 000 ₸</span>
               </div>
               <div class="option-check">✓</div>
             </button>
-            <button class="option-btn" id="shape-rectangular" onclick="selectOption('shape','rectangular')" aria-label="Прямоугольный корпус">
-              <div class="option-swatch shape-swatch-rect"></div>
+            <!-- 6. Cartier Santos -->
+            <button class="option-btn" id="shape-cartier-santos" onclick="selectOption('shape','cartier-santos')" aria-label="Cartier Santos">
+              <div class="option-swatch shape-swatch-santos"></div>
               <div class="option-info">
-                <span class="option-name">Прямоугольный</span>
-                <span class="option-price">Базовый</span>
+                <span class="option-name">Cartier Santos <span class="brand-tag">Cartier</span></span>
+                <span class="option-sub">Изогнутый квадрат с 8 винтами и синим сапфиром</span>
+                <span class="option-price">+4 000 ₸</span>
               </div>
               <div class="option-check">✓</div>
             </button>
@@ -477,8 +586,8 @@
         </p>
         <div class="about-stats">
           <div class="stat-item">
-            <span class="stat-number">243</span>
-            <span class="stat-label">варианта сборки</span>
+            <span class="stat-number">648</span>
+            <span class="stat-label">вариантов сборки</span>
           </div>
           <div class="stat-item">
             <span class="stat-number">5</span>
@@ -594,7 +703,7 @@
           <span id="modalStrap">—</span>
         </div>
         <div class="summary-row">
-          <span>Форма корпуса</span>
+          <span>Модель корпуса</span>
           <span id="modalShape">—</span>
         </div>
         <div class="summary-row">
